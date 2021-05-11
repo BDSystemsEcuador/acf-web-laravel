@@ -35,13 +35,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //AUTH
 
-Route::middleware('auth')->group(function () {
-
-    Route::get('account','AccountController@dashboard');
-    Route::get('register', 'Auth\RegisterController@showRegistrationForm') ->name('register');
-    Route::post('register', 'Auth\RegisterController@register')->name('registerPost');
-
-});
-
 
 
