@@ -23,3 +23,25 @@ Route::get('/', function () {
 Route::resource('inicio', InicioController::class);
 Route::resource('quienes_somos', QuienesController::class);
 Route::resource('proyectos', ProyectoController::class);
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//Middlewares
+
+//AUTH
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('account','AccountController@dashboard');
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm') ->name('register');
+    Route::post('register', 'Auth\RegisterController@register')->name('registerPost');
+
+});
+
+
+
