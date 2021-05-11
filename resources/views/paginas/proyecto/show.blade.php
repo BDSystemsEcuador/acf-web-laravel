@@ -11,6 +11,11 @@
       eveniet consequatur similique cumque veniam. Accusamus amet natus
       blanditiis cumque?
     </p>
+    <script>
+        lightbox.option({
+          'disableScrolling': true
+          })
+    </script>
     <section class="galeria-noticia">
      <a href="{{asset('img/paginas/inicio/1-min.jpg')}}" data-lightbox="roadtrip"><img src="{{asset('img/paginas/inicio/1-min.jpg')}}" alt=""/></a>
      <a href="{{asset('img/paginas/inicio/1-min.jpg')}}" data-lightbox="roadtrip"><img src="{{asset('img/paginas/inicio/1-min.jpg')}}" alt=""/></a>

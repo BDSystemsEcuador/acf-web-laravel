@@ -3,6 +3,7 @@
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\QuienesController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 //inicio
-Route::resource('inicio', InicioController::class);
+Route::resource('/', InicioController::class);
 Route::resource('quienes_somos', QuienesController::class);
 Route::resource('proyectos', ProyectoController::class);
+
+//administrador
+Route::prefix('admin')->group(function () {
+        Route::get('/', function () {
+            return view('administrador.inicio');
+        })->name('admin.inicio');
+        Route::resource('/sliders', SliderController::class);
+    });

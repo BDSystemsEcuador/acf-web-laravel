@@ -7,87 +7,53 @@
         id="carouselAlasDeColibri"
         class="carousel slide"
         data-bs-ride="carousel">
+
+        @if (count($sliders)>0)
         <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#carouselAlasDeColibri"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselAlasDeColibri"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselAlasDeColibri"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselAlasDeColibri"
-            data-bs-slide-to="3"
-            aria-label="Slide 4"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselAlasDeColibri"
-            data-bs-slide-to="4"
-            aria-label="Slide 5"
-          ></button>
+            @if ($sliders[0])
+                <button
+                type="button"
+                data-bs-target="#carouselAlasDeColibri"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+            ></button>
+            @for ($i=1;$i<count($sliders);$i++)
+                <button
+                type="button"
+                data-bs-target="#carouselAlasDeColibri"
+                data-bs-slide-to="{{$i}}"
+                aria-label="Slide {{$i+1}}"
+                ></button>
+            @endfor
+            @endif
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="{{asset('img/paginas/inicio/1-min.jpg')}}" class="d-block w-100 carousel__img" alt="..." />
-            <div class="carousel-caption d-md-block">
-              <h5>First slide label</h5>
-              <p>
-                Some representative placeholder content for the first slide.
-              </p>
+            <div class="carousel-item active">
+              <img src="{{asset('storage').'/'.$sliders[0]->imagen}}" class="d-block w-100 carousel__img" alt="..." />
+              <div class="carousel-caption d-md-block">
+                <h5>{{$sliders[0]->titulo}}</h5>
+                <p>
+                  {{$sliders[0]->descripcion}}
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <img src="{{asset('img/paginas/inicio/2-min.jpg')}}" class="d-block w-100 carousel__img" alt="..." />
-            <div class="carousel-caption d-md-block">
-              <h5>Second slide label</h5>
-              <p>
-                Some representative placeholder content for the second slide.
-              </p>
+            @for ($i=1;$i<count($sliders);$i++)
+            <div class="carousel-item">
+              <img src="{{asset("storage").'/'.$sliders[$i]->imagen}}" class="d-block w-100 carousel__img" alt="..." />
+              <div class="carousel-caption d-md-block">
+                <h5>{{$sliders[$i]->titulo}}</h5>
+                <p>
+                  {{$sliders[$i]->descripcion}}
+                </p>
+              </div>
             </div>
+            @endfor
+
           </div>
-          <div class="carousel-item">
-            <img src="{{asset('img/paginas/inicio/3-min.jpg')}}" class="d-block w-100 carousel__img" alt="..." />
-            <div class="carousel-caption d-md-block">
-              <h5>Third slide label</h5>
-              <p>
-                Some representative placeholder content for the third slide.
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="{{asset('img/paginas/inicio/1-min.jpg')}}" class="d-block w-100 carousel__img" alt="..." />
-            <div class="carousel-caption d-md-block">
-              <h5>Second slide label</h5>
-              <p>
-                Some representative placeholder content for the second slide.
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="{{asset('img/paginas/inicio/2-min.jpg')}}" class="d-block w-100 carousel__img" alt="..." />
-            <div class="carousel-caption d-md-block">
-              <h5>Second slide label</h5>
-              <p>
-                Some representative placeholder content for the second slide.
-              </p>
-            </div>
-          </div>
-        </div>
+        @endif
+
         <button
           class="carousel-control-prev"
           type="button"

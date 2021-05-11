@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Inicio;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 
-class InicioController extends Controller
+class SliderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class InicioController extends Controller
     public function index()
     {
         $sliders=Slider::all();
-        return view('paginas.inicio.index',compact('sliders'));
+        return view('administrador.sliders.index',compact('sliders'));
     }
 
     /**
@@ -26,7 +26,7 @@ class InicioController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrador.sliders.create');
     }
 
     /**
@@ -37,16 +37,24 @@ class InicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newSlider= new Slider;
+        $newSlider->titulo = $request->input('titulo');
+        $newSlider->descripcion = $request->input('descripcion');
+        if($request->hasFile('imagen')){
+            $newSlider['imagen']=$request->file('imagen')->store('uploads','public');
+        }
+        $newSlider->save();
+        return redirect()-> route('admin.inicio')->with('message','Agregado con éxito');
+        ;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Inicio  $inicio
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function show(Inicio $inicio)
+    public function show(Slider $slider)
     {
         //
     }
@@ -54,10 +62,10 @@ class InicioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Inicio  $inicio
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inicio $inicio)
+    public function edit(Slider $slider)
     {
         //
     }
@@ -66,10 +74,10 @@ class InicioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Inicio  $inicio
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Inicio $inicio)
+    public function update(Request $request, Slider $slider)
     {
         //
     }
@@ -77,10 +85,10 @@ class InicioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Inicio  $inicio
+     * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Inicio $inicio)
+    public function destroy(Slider $slider)
     {
         //
     }

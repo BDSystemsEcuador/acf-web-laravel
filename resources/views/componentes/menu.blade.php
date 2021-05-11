@@ -41,7 +41,7 @@
           </li>
           <li class="menu__item container-submenu">
             <a href="/unete_y_participa/donaciones" class="menu__link submenu-btn"
-              >Únete y Participa <i class="fas fa-chevron-down"></i
+              >Únete y participa <i class="fas fa-chevron-down"></i
             ></a>
             <ul class="submenu">
               <li class="menu__item">
@@ -53,7 +53,7 @@
             </ul>
           </li>
           <li class="menu__item">
-            <a href="#" class="menu__link">Rendición de Cuentas</a>
+            <a href="#" class="menu__link">Rendición de cuentas</a>
           </li>
         </ul>
       </nav>
