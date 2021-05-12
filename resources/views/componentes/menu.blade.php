@@ -18,7 +18,7 @@
       <nav class="main-nav" id="main-nav">
         <ul class="menu">
           <li class="menu__item">
-            <a href="/inicio" class="menu__link">Inicio</a>
+            <a href="/" class="menu__link">Inicio</a>
           </li>
           <li class="menu__item">
             <a href="/quienes_somos" class="menu__link">Quiénes Somos</a>

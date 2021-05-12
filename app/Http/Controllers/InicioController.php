@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inicio;
+use App\Models\Proyecto;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,9 @@ class InicioController extends Controller
      */
     public function index()
     {
-        $sliders=Slider::all();
-        return view('paginas.inicio.index',compact('sliders'));
+        $sliders=Slider::orderBy('updated_at','desc')->get();
+        $proyectos=Proyecto::orderBy('id','desc')->paginate(5);
+        return view('paginas.inicio.index')->with(compact(['sliders','proyectos']));
     }
 
     /**

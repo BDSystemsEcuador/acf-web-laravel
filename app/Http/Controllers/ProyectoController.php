@@ -14,7 +14,7 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        return view('paginas.proyecto.show');
+
     }
 
     /**
@@ -24,7 +24,8 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrador.proyectos.create');
+
     }
 
     /**
@@ -35,7 +36,16 @@ class ProyectoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newProyecto= new Proyecto;
+        $newProyecto->titulo = $request->input('titulo');
+        $newProyecto->mini_descripcion = $request->input('mini_descripcion');
+        $newProyecto->descripcion = $request->input('descripcion');
+        if($request->hasFile('imagen')){
+            $newProyecto['imagen']=$request->file('imagen')->store('uploads/proyectos','public');
+        }
+        $newProyecto->save();
+        return redirect()-> route('admin.inicio')->with('message','Proyecto agregado con éxito');
+
     }
 
     /**

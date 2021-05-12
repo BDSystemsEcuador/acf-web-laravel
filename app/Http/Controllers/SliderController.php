@@ -15,7 +15,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders=Slider::all();
+        $sliders=Slider::orderBy('id','desc')->get();
         return view('administrador.sliders.index',compact('sliders'));
     }
 
@@ -41,12 +41,11 @@ class SliderController extends Controller
         $newSlider->titulo = $request->input('titulo');
         $newSlider->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
-            $newSlider['imagen']=$request->file('imagen')->store('uploads','public');
+            $newSlider['imagen']=$request->file('imagen')->store('uploads/slider','public');
         }
         $newSlider->save();
         return redirect()-> route('admin.inicio')->with('message','Agregado con éxito');
-        ;
-    }
+         }
 
     /**
      * Display the specified resource.
@@ -56,7 +55,6 @@ class SliderController extends Controller
      */
     public function show(Slider $slider)
     {
-        //
     }
 
     /**
@@ -67,7 +65,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        //
+        return view('administrador.sliders.edit',compact('slider'));
     }
 
     /**
@@ -79,7 +77,14 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider)
     {
-        //
+        $sliderFind=Slider::findOrFail($slider->id);
+        $sliderFind->titulo = $request->input('titulo');
+        $sliderFind->descripcion = $request->input('descripcion');
+        if($request->hasFile('imagen')){
+            $sliderFind['imagen']=$request->file('imagen')->store('uploads/slider','public');
+        }
+        $sliderFind->save();
+        return redirect()-> route('admin.inicio')->with('message','Editado con éxito');
     }
 
     /**

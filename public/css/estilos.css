@@ -13,11 +13,11 @@
   @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
   @font-face {
     font-family: Bahnschrift;
-    src: url(/src/assets/fonts/Bahnschrift\ Regular.ttf);
+    src: url('../fonts/Bahnschrift.ttf') ;
   }
   /*----------------------Estilos generales-----------------------------------*/
   body {
-    font-family: Bahnschrift;
+    font-family: 'Bahnschrift', sans-serif;
     background: rgb(243, 243, 243);
 
   }
@@ -26,7 +26,7 @@
     object-fit: cover;
   }
   h1,h2,h3,h4,h5,h6{
-    font-weight: 300;
+    font-weight: 400;
   }
   p{
     font-weight: 200;
@@ -77,6 +77,7 @@
   .copy-title {
     color: var(--secondary);
     text-align: center;
+    font-size: 1.4rem;
   }
   .copy-subtitle{
     text-align: center;
@@ -270,10 +271,12 @@
 
   .cards {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-around;
   }
   .card {
+    display: inline-block;
+    max-width: 230px;
     background: var(--light);
     padding: 0px;
     border-radius: 10px;
@@ -282,7 +285,8 @@
     border: 1px solid rgba(2, 2, 2, 0.165);
   }
   .card__img {
-    height: 250px;
+    height: 160px;
+    padding:0 10px ;
   }
 
   .card__title {

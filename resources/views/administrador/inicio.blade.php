@@ -27,8 +27,8 @@ swal({
                     <p>Galería</p>
                 </div>
                 <div class="card-body">
-                    <a href="/admin/sliders/create" class="btn btn-success">Agregar</a>
-                    <a href="/admin/sliders" class="btn btn-warning">Editar/Eliminar</a>
+                    <a href="/admin/sliders/create" class="btn btn-dark">Agregar <i class="far fa-plus-square"></i></a>
+                    <a href="/admin/sliders" class="btn btn-warning">Editar <i class="far fa-edit"></i></a>
                 </div>
             </div>
             <div class="card">
@@ -36,8 +36,8 @@ swal({
                     <p>Proyectos</p>
                 </div>
                 <div class="card-body">
-                    <a href="/admin/sliders/create" class="btn btn-success">Agregar</a>
-                    <a href="/admin/sliders" class="btn btn-warning">Editar/Eliminar</a>
+                    <a href="/admin/proyectos/create" class="btn btn-dark">Agregar <i class="far fa-plus-square"></i></a>
+                    <a href="/admin/sliders" class="btn btn-warning">Editar <i class="far fa-edit"></i></a>
                 </div>
             </div>
         </div>

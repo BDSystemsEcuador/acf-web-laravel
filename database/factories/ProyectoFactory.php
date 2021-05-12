@@ -22,7 +22,10 @@ class ProyectoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'titulo'=> $this->faker->title(),
+            'mini_descripcion'=> $this->faker->text(),
+            'imagen'=> $this->faker->image(),
+            'descripcion'=> $this->faker->text(),
         ];
     }
 }

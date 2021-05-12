@@ -6,15 +6,15 @@
     @csrf
     <div class="mb-3">
         <label for="titulo" class="form-label">Título</label>
-        <input type="text" class="form-control" placeholder="Ingresa el título" name="titulo">
+        <input type="text" class="form-control" placeholder="Ingresa el título" name="titulo" required>
     </div>
     <div class="mb-3">
         <label for="descripcion" class="form-label">Descripción</label>
-        <textarea class="form-control" name="descripcion" rows="3"></textarea>
+        <textarea class="form-control" name="descripcion" rows="3" required></textarea>
     </div>
     <div class="mb-3">
         <label for="imagen" class="form-label">Imagen</label>
-        <input class="form-control" type="file" name="imagen">
+        <input class="form-control" type="file" name="imagen" required>
     </div>
     <button type="submit" class="btn btn-success">Agregar</button>
 </form>

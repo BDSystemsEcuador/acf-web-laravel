@@ -75,7 +75,32 @@
       </div>
     </section>
     <!-- Donaciones -->
-    @component('paginas.proyecto.index')@endcomponent
+        <!-- proyecto -->
+@if(count($proyectos)>0)
+<section class="container notices">
+    <h2 class="copy-title">Proyectos</h2>
+    <p class="copy-subtitle">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis,
+      deleniti.
+    </p>
+    <div class="cards">
+
+        @foreach ($proyectos as $proyecto)
+        <div class="card">
+            <h2 class="card__title">{{$proyecto->titulo}} {{$proyecto->id}}</h2>
+            <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="card__img" />
+            <p class="card__txt">
+                {{$proyecto->mini_descripcion}}
+            </p>
+            <a href="proyectos" class="btn-morado card--btn">Leer más <i class="fas fa-chevron-right"></i></a>
+        </div>
+        @endforeach
+
+     </div>
+     {{$proyectos->links()}}
+  </section>
+@endif
+
 </div>
 
 
