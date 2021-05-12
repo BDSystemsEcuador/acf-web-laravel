@@ -4,7 +4,7 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th scope="col">Imagen</th>
+          <th scope="col">Imagen</th>
           <th scope="col">Título</th>
           <th scope="col">Descripción</th>
           <th scope="col">Fecha / Hora</th>
@@ -20,6 +20,11 @@
             <td>{{$slider->created_at}}</td>
             <td>
                 <a href="{{route('sliders.edit',$slider->id)}}" class="btn btn-warning">Editar</a>
+                <a onclick="document.getElementById('{{$slider->id}}-delete').submit();" class="btn btn-danger">Eliminar</a>
+                <form id="{{$slider->id}}-delete" action="{{route('sliders.destroy',$slider->id)}}" method="POST">
+                    @method('delete')
+                    @csrf
+                </form>
             </td>
         </tr>
         @endforeach

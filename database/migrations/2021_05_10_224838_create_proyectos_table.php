@@ -19,6 +19,7 @@ class CreateProyectosTable extends Migration
             $table->string('mini_descripcion');
             $table->string('imagen')->nullable(true);
             $table->text('descripcion');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

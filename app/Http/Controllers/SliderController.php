@@ -16,7 +16,8 @@ class SliderController extends Controller
     public function index()
     {
         $sliders=Slider::orderBy('id','desc')->get();
-        return view('administrador.sliders.index',compact('sliders'));
+        $sliderBorrados=Slider::withTrashed()->get();
+        return view('administrador.sliders.index',compact(['sliders','sliderBorrados']));
     }
 
     /**
@@ -55,6 +56,7 @@ class SliderController extends Controller
      */
     public function show(Slider $slider)
     {
+
     }
 
     /**
@@ -84,7 +86,7 @@ class SliderController extends Controller
             $sliderFind['imagen']=$request->file('imagen')->store('uploads/slider','public');
         }
         $sliderFind->save();
-        return redirect()-> route('admin.inicio')->with('message','Editado con éxito');
+        return redirect()-> route('sliders.index')->with('message','Editado con éxito');
     }
 
     /**
@@ -95,6 +97,7 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        //
+            $slider->delete();
+            return redirect()-> route('sliders.index')->with('message','Eliminado con éxito');
     }
 }
