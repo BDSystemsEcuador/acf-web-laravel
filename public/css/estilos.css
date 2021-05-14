@@ -85,14 +85,13 @@ p {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 0;
+    height: max-content;
     z-index: 99;
     background: rgb(255, 255, 255);
     border-bottom: 1px solid var(--secondary);
 }
 .menu-bar-container {
     background: white;
-    border-bottom: 2px solid var(--secondary);
 }
 .menu-bar {
     display: flex;
@@ -116,6 +115,7 @@ p {
     position: relative;
     top: -100%;
     width: 100vw;
+    height: 0;
     overflow: auto;
     clip-path: circle(0.0% at 100% 0);
     background-color: transparent;
@@ -277,7 +277,7 @@ p {
     top: 0px;
     left: 0;
     width: 100%;
-    height: 260px;
+    height: 400px;
     background: linear-gradient(to right, #5b81ff91, #9b05ff7e);
 
 }
@@ -682,7 +682,7 @@ p {
     }
     .carousel-item::before,
     .carousel-item img {
-        height: 600px;
+        height: 400px;
     }
     .carousel-item img {
         position: relative;

@@ -26,6 +26,10 @@ btnMenu.addEventListener('click',function(){
     menu.classList.toggle("mostrar");
 });
 const subMenuBtn = document.querySelectorAll('.submenu-btn');
+if(window.innerWidth>=1024){
+
+    menu.classList.add("mostrar");
+}
 for(let i = 0; i<subMenuBtn.length;i++){
     subMenuBtn[i].addEventListener('click',function(){
         if(window.innerWidth<1024){

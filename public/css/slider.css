@@ -327,8 +327,22 @@ button:not(:disabled),
   .d-md-block {
     display: block !important;
   }
-  .carousel-item{
-    height: 100px;
+  .carousel-item {
+    position: relative;
+}
+  .carousel-item img{
+    height: 300px;
+}
+
+.carousel-item::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(to right, #5b81ff91, #9b05ff7e);
+
 }
 }
 /*# sourceMappingURL=custom.css.map */
