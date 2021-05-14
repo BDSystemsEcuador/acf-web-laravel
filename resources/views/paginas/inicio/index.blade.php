@@ -75,6 +75,17 @@
       </div>
     </section>
     <!-- Donaciones -->
+    <section class="donaciones">
+      <a class="donaciones-box donaciones__btn btn-transparent" href="#">
+        <h2 class="donaciones__title">Únete y Participa</h2>
+        <i class="fab fa-cc-paypal donaciones__icon"></i>
+      </a>
+      <!--     <div id="smart-button-container">
+        <div style="text-align: center;">
+          <div id="paypal-button-container"></div>
+        </div>
+      </div> -->
+    </section>
         <!-- proyecto -->
 @if(count($proyectos)>0)
 <section class="container proyectos">
@@ -87,8 +98,8 @@
 
         @foreach ($proyectos as $proyecto)
         <div class="card">
+          <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="card__img" />
             <h2 class="card__title">{{$proyecto->titulo}} {{$proyecto->id}}</h2>
-            <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="card__img" />
             <p class="card__txt">
                 {{$proyecto->mini_descripcion}}
             </p>

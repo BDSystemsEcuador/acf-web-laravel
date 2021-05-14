@@ -274,7 +274,6 @@ button:not(:disabled),
   left: 15%;
   padding: 0;
   color: #fff;
-  background-color: black;
   text-align: center;
 }
 
