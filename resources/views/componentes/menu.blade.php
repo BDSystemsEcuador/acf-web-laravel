@@ -2,7 +2,7 @@
     <div id="menu-box" class="menu-contenedor container-nav">
       <div class="menu-bar-container">
         <div class="menu-bar container ">
-          <a class="nav__logo" href="/inicio"
+          <a class="nav__logo" href="/"
             ><img
               class="nav__logo"
               src="{{asset('img/logoFAC.png')}}"
@@ -40,7 +40,7 @@
             </ul>
           </li>
           <li class="menu__item container-submenu">
-            <a href="/unete_y_participa/donaciones" class="menu__link submenu-btn"
+            <a href="#" class="menu__link submenu-btn"
               >Únete y participa <i class="fas fa-chevron-down"></i
             ></a>
             <ul class="submenu">

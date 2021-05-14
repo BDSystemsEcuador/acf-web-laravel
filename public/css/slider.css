@@ -23,7 +23,6 @@
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  line-height: 1.2;
 }
 
 h5, .h5 {
@@ -122,6 +121,7 @@ button:not(:disabled),
   .carousel-item {
     -webkit-transition: none;
     transition: none;
+
   }
 }
 
@@ -164,6 +164,7 @@ button:not(:disabled),
   .carousel-control-next {
     -webkit-transition: none;
     transition: none;
+    
   }
 }
 
@@ -256,6 +257,7 @@ button:not(:disabled),
   .carousel-indicators [data-bs-target] {
     -webkit-transition: none;
     transition: none;
+    
   }
 }
 
@@ -265,13 +267,14 @@ button:not(:disabled),
 
 .carousel-caption {
   position: absolute;
+  display: block;
   right: 15%;
   bottom: 50%;
   transform: translateY(50%);
   left: 15%;
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding: 0;
   color: #fff;
+  background-color: black;
   text-align: center;
 }
 
@@ -325,8 +328,8 @@ button:not(:disabled),
   .d-md-block {
     display: block !important;
   }
-  .carousel-item img{
-    height: 250px;
+  .carousel-item{
+    height: 100px;
 }
 }
 /*# sourceMappingURL=custom.css.map */

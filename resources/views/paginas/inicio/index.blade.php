@@ -77,7 +77,7 @@
     <!-- Donaciones -->
         <!-- proyecto -->
 @if(count($proyectos)>0)
-<section class="container notices">
+<section class="container proyectos">
     <h2 class="copy-title">Proyectos</h2>
     <p class="copy-subtitle">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis,
