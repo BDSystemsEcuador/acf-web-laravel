@@ -1,45 +1,17 @@
 @extends('administrador.layouts.main')
 @section('admin')
-<h3>Administración de la página</h3>
-
-@if(session('message'))
-<script>
-swal({
-  title: "{{session('message')}}",
-  icon: "success",
-  showConfirmButton: false,
-  timer: 1500,
-});
-
-</script>
-@endif
+<h5 class="text-center text-danger mb-3">Fundación Alas de Colibrí</h5>
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Página de Inicio
+          Inicio
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-        <div class="accordion-body d-flex">
-            <div class="card mx-2">
-                <div class="card-header">
-                    <p>Galería</p>
-                </div>
-                <div class="card-body">
-                    <a href="/admin/sliders/create" class="btn btn-dark">Agregar <i class="far fa-plus-square"></i></a>
-                    <a href="/admin/sliders" class="btn btn-warning">Editar <i class="far fa-edit"></i></a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <p>Proyectos</p>
-                </div>
-                <div class="card-body">
-                    <a href="/admin/proyectos/create" class="btn btn-dark">Agregar <i class="far fa-plus-square"></i></a>
-                    <a href="/admin/sliders" class="btn btn-warning">Editar <i class="far fa-edit"></i></a>
-                </div>
-            </div>
+        <div class="accordion-body p-0">
+          <a href="/admin/sliders" class="btn btn-outline-dark d-block m-2">Galería</a>
+          <a href="/admin/proyectos" class="btn btn-outline-dark d-block m-2">Proyectos</a>
         </div>
       </div>
     </div>
@@ -80,4 +52,15 @@ swal({
         </div>
       </div>
   </div>
+  @if(session('message'))
+<script>
+swal({
+  title: "{{session('message')}}",
+  icon: "success",
+  showConfirmButton: false,
+  timer: 1500,
+});
+
+</script>
+@endif
 @endsection

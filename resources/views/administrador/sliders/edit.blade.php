@@ -1,7 +1,10 @@
 @extends('administrador.layouts.main')
 @section('title','Agregar a Galería')
 @section('admin')
-<h1>Editar galería</h1>
+<div class="d-flex justify-content-between align-items-center">  
+    <h5 class="text-danger m-3">Galería</h5>
+    <a href="/admin/sliders" class="btn btn-outline-danger">Volver</a>
+</div>
 <form action="{{route('sliders.update',$slider->id)}}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @csrf
@@ -18,6 +21,6 @@
         <label for="imagen" class="form-label">Imagen</label>
         <input class="form-control" type="file" name="imagen">
     </div>
-    <button type="submit" class="btn btn-success">Agregar</button>
+    <button type="submit" class="btn btn-success w-100">Editar</button>
 </form>
 @endsection
