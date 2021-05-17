@@ -578,6 +578,9 @@ p {
         width: 50%;
         padding: 20px;
     }
+    .contactos-wsp {
+        max-width: max-content;
+    }
 }
 @media screen and (min-width: 1024px) {
     .container {
