@@ -15,6 +15,11 @@ class CreateQuienesTable extends Migration
     {
         Schema::create('quienes', function (Blueprint $table) {
             $table->id();
+	    $table->string('seccion');
+	    $table->string('titulo');
+	    $table->text('contenido');
+            $table->string('imagen')->nullable(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

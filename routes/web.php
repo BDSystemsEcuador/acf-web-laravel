@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 //inicio
 Route::resource('/', InicioController::class);
-Route::resource('quienes_somos', QuienesController::class);
+Route::get('/quienes_somos', function (){
+    return view('paginas.quienes.index');
+        })->name('quienes.inicio');
 Route::resource('proyectos', ProyectoController::class);
 
 Auth::routes();
@@ -30,6 +32,7 @@ Route::prefix('admin')->group(function () {
         })->name('admin.inicio')->middleware('auth');
         Route::resource('/sliders', SliderController::class)->middleware('auth');
         Route::resource('/proyectos', ProyectoController::class)->middleware('auth');
+	Route::resource('/quienes_somos', QuienesController::class)->middleware('auth');
 });
 
 
