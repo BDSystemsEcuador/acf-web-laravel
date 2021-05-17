@@ -1,7 +1,10 @@
 @extends('administrador.layouts.main')
-@section('title','Proyectos - create')
+@section('title','Nuevo proyecto')
 @section('admin')
-<h1>Agregar proyecto</h1>
+<div class="d-flex justify-content-between align-items-center">  
+    <h5 class="text-danger m-3">Nuevo proyecto</h5>
+    <a href="{{route('proyectos.index')}}" class="btn btn-outline-danger">Volver</a>
+</div>
 <form action="{{route('proyectos.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
@@ -23,4 +26,3 @@
     <button type="submit" class="btn btn-success">Agregar</button>
 </form>
 @endsection
-

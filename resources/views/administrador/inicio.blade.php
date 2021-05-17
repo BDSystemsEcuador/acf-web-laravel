@@ -9,9 +9,13 @@
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-        <div class="accordion-body p-0">
-          <a href="/admin/sliders" class="btn btn-outline-dark d-block m-2">Galería</a>
-          <a href="/admin/proyectos" class="btn btn-outline-dark d-block m-2">Proyectos</a>
+        <div class="accordion-body p-0 row">
+          <div class="col-md-6">
+            <a href="{{route('sliders.index')}}" class="btn btn-outline-dark d-block m-2">Galería</a>
+          </div>
+          <div class="col-md-6">
+            <a href="{{route('proyectos.index')}}" class="btn btn-outline-dark d-block m-2 ">Proyectos</a>
+          </div>
         </div>
       </div>
     </div>

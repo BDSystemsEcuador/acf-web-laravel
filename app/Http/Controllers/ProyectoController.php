@@ -14,7 +14,8 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-
+        $proyectos = Proyecto::orderBy('id','desc')->simplePaginate(4);
+        return view('administrador.proyectos.index',compact('proyectos'));
     }
 
     /**
@@ -44,7 +45,7 @@ class ProyectoController extends Controller
             $newProyecto['imagen']=$request->file('imagen')->store('uploads/proyectos','public');
         }
         $newProyecto->save();
-        return redirect()-> route('admin.inicio')->with('message','Proyecto agregado con éxito');
+        return redirect()-> route('proyectos.index')->with('message','Proyecto agregado con éxito');
 
     }
 
@@ -67,7 +68,7 @@ class ProyectoController extends Controller
      */
     public function edit(Proyecto $proyecto)
     {
-        //
+        return view('administrador.proyectos.edit',compact('proyecto'));
     }
 
     /**
@@ -90,6 +91,7 @@ class ProyectoController extends Controller
      */
     public function destroy(Proyecto $proyecto)
     {
-        //
+        $proyecto->delete();
+        return redirect()-> route('proyectos.index')->with('message','Eliminado con éxito');
     }
 }

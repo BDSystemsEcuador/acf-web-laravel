@@ -4,10 +4,11 @@
   <h5 class="text-danger m-3">Galería</h5>
   <a href="/admin/sliders/create" class="btn btn-danger text-light">Nuevo</a>
 </div>
+<div class="row" >
 
 @foreach ($sliders as $slider)
-<div class="card">
-  <img class="card-img-top" src="{{asset("storage").'/'.$slider->imagen}}" alt="Card image cap">
+<div class="card col-md-3">
+  <img class="card-img-top" src="{{asset("storage").'/'.$slider->imagen}}" alt="Card image cap" style="max-height:150px;object-fit:contain;">
   <div class="card-body">
     <h6 class="text-center fw-bold">{{$slider->titulo}}</h6>
     <p class="text-dark">{{$slider->descripcion}}</p>
@@ -22,6 +23,10 @@
   </div>
 </div>
 @endforeach
+</div>
+<div class="d-flex justify-content-end">  
+  {{$sliders->links()}}
+</div>
 {{-- <div class="table-responsive">
   <table class="table table-striped table-hover">
     <thead>
