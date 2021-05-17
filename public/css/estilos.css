@@ -508,7 +508,48 @@ p {
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 10px;
 }
+/*colaboradores*/
+.colaboradores{
+    margin: 30px auto;
+     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.118);
+    padding: 20px 0;
+    background: rgb(255, 255, 255);
+   
+}
+.colaboradores-box{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;   
+}
+.colaboradores-item{
+      width: 100%;   
+      max-width: 204px;
+}
+.colaboradores__img{
+    overflow: hidden;
+    padding: 10px;
+    height: 75px;
+    margin: 5px 0;
+    width: 100%;
+    object-fit: fill;
+    transition: opacity 1s;
+    cursor: pointer;
+    filter: brightness(90%);
 
+}
+
+.colaboradores-item:hover{
+  filter: brightness(100%);
+      background: rgb(255, 255, 255);
+      border-radius: 10px;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.199);
+
+}
+.copy--margin-none{
+  margin-top: 0;
+}
 @media screen and (min-width: 768px) {
     .donaciones__title {
         margin: 0;
@@ -516,6 +557,12 @@ p {
     .card{
       width: 32%;
     }
+    .colaboradores-box{
+        margin: auto;
+    }
+    .colaboradores-item{
+      width: max-content;
+	}
     .mapa {
         margin-bottom: 0;
     }

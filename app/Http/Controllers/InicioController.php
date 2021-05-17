@@ -17,7 +17,7 @@ class InicioController extends Controller
     public function index()
     {
         $sliders=Slider::orderBy('updated_at','desc')->get();
-        $proyectos=Proyecto::orderBy('id','desc')->paginate(5);
+        $proyectos=Proyecto::orderBy('id','desc')->simplePaginate(5);
         return view('paginas.inicio.index')->with(compact(['sliders','proyectos']));
     }
 

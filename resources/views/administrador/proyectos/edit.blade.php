@@ -7,6 +7,7 @@
 </div>
 <form action="{{route('proyectos.update',$proyecto->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <div class="mb-3">
         <label for="titulo" class="form-label">Título</label>
         <input type="text" class="form-control" placeholder="Ingresa el título" name="titulo" value="{{$proyecto->titulo}}" >

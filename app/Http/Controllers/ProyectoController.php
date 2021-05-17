@@ -80,7 +80,15 @@ class ProyectoController extends Controller
      */
     public function update(Request $request, Proyecto $proyecto)
     {
-        //
+        $proyectoFind=Proyecto::findOrFail($proyecto->id);
+        $proyectoFind->titulo = $request->input('titulo');
+        $proyectoFind->mini_descripcion = $request->input('mini_descripcion');
+        $proyectoFind->descripcion = $request->input('descripcion');
+        if($request->hasFile('imagen')){
+            $proyectoFind['imagen']=$request->file('imagen')->store('uploads/proyecto','public');
+        }
+        $proyectoFind->save();
+        return redirect()->route('proyectos.index');
     }
 
     /**
