@@ -10,5 +10,16 @@ class Proyecto extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $fillables = [
+        'titulo',
+        'mini_descripcion',
+        'imagen'
+    ];
+    protected $hidden = [
+        'id',
+        'descripcion',
+        'created_at',
+        'updated_at'
+    ];
     protected $dates = ['deleted_at'];
 }
