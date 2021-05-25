@@ -14,11 +14,6 @@ $camposQ = $provider->serviceQuienes();
 <script>
 
 var formsData = [];
-var colaboradorPost = false;
-var colaboradorDelete = false;
-var colaboradorPost = false;
-var colaboradorPost = false;
-
 
 
 $(document).ready(function(){
@@ -32,6 +27,7 @@ $(document).ready(function(){
     $("#editabletag").click(function(){
 	alert('holamundo');
     });
+
 
     $('#exportboton').click(function () {
 
@@ -80,7 +76,7 @@ $(document).ready(function(){
 	    for (var value of formsData[i].values()) {
 		console.log(value);
 	    }
-	     */
+	    */
 
 	}
 
@@ -88,25 +84,7 @@ $(document).ready(function(){
 	console.log(formsData);
 	// Output the result
 	$('#exporttext').text($data);
-
     });
-
-    //Colaboradores section
-
-    $("#newColaborador").click(function(){
-	//alert('holamundo');
-    $(".newColaboradorCuadro").show();
-    $("#newColaborador").hide();
-    });
-
-
-    $("#editableColaborador").click(function(){
-	//alert('holamundo');
-    $(this).hide();
-$(this).siblings('.editableColaboradorButtons').show();
-    });
-    //Colaboradores section fin
-
 });
 
 //slugify function
@@ -196,7 +174,6 @@ function SaveApi(lis){
 	}
 
     }
-
 
 </script>
 
