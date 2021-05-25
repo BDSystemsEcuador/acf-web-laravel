@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Sliders;
+namespace App\Http\Requests\Projects;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class StoreProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo' => 'required|max:30',
+            'titulo' => 'required|max:25',
+            'mini_descripcion' => 'required',
             'descripcion' => 'required',
             'imagen' => 'required|image'
         ];

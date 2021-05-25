@@ -32,14 +32,14 @@ h6 {
     text-transform: uppercase;
 }
 p {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
     line-height: 1.6;
     color: var(--primary);
 }
 .principal {
-    position: absolute;
-    top: 74px;
+    margin-top: 74px;
+    width: 100%;
 }
 .container {
     max-width: 96%;
@@ -117,7 +117,7 @@ p {
     width: 100vw;
     height: 0;
     overflow: auto;
-    clip-path: circle(0.0% at 100% 0);
+    clip-path: circle(0% at 100% 0);
     background-color: transparent;
     transition: clip-path 0.2s;
 }
@@ -179,34 +179,31 @@ p {
     width: 100%;
     background: var(--morado);
     border-radius: 0;
-    transition: all .5s;
-  }
-  
-  .donaciones__title,
-  .donaciones__icon {
+    transition: all 0.5s;
+}
+
+.donaciones__title,
+.donaciones__icon {
     display: block;
     width: max-content;
     text-align: center;
-    margin-left:10px;
+    margin-left: 10px;
     font-size: 1rem;
-  
+
     color: white;
-      transition: all .5s;
-  
-  }
-  .donaciones__icon {
+    transition: all 0.5s;
+}
+.donaciones__icon {
     font-size: 2.2rem;
-  }
-  
-  
-  .donaciones-box:hover .donaciones__title,
-  .donaciones-box:hover .donaciones__icon{
-  color: var(--morado);
-  
-  }
-  .donaciones-box:hover{
+}
+
+.donaciones-box:hover .donaciones__title,
+.donaciones-box:hover .donaciones__icon {
+    color: var(--morado);
+}
+.donaciones-box:hover {
     background: white;
-  }
+}
 /* inicio */
 .proyectos {
     margin: 40px auto;
@@ -279,7 +276,6 @@ p {
     width: 100%;
     height: 400px;
     background: linear-gradient(to right, #5b81ff91, #9b05ff7e);
-
 }
 .carousel-caption {
     color: rgb(255, 255, 255);
@@ -290,7 +286,6 @@ p {
 }
 .carousel-caption p {
     color: rgb(255, 255, 255);
-
 }
 /* footer */
 .footer-bar {
@@ -325,7 +320,7 @@ p {
     margin-bottom: 10px;
 }
 .mapa__info {
-    width: 100%;
+    width: 100vw;
     padding: 0;
     background: rgb(43, 43, 43);
 }
@@ -509,25 +504,24 @@ p {
     grid-gap: 10px;
 }
 /*colaboradores*/
-.colaboradores{
+.colaboradores {
     margin: 30px auto;
-     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.118);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.118);
     padding: 20px 0;
     background: rgb(255, 255, 255);
-   
 }
-.colaboradores-box{
+.colaboradores-box {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;   
+    width: 100%;
 }
-.colaboradores-item{
-      width: 100%;   
-      max-width: 204px;
+.colaboradores-item {
+    width: 100%;
+    max-width: 204px;
 }
-.colaboradores__img{
+.colaboradores__img {
     overflow: hidden;
     padding: 10px;
     height: 75px;
@@ -537,32 +531,40 @@ p {
     transition: opacity 1s;
     cursor: pointer;
     filter: brightness(90%);
-
 }
 
-.colaboradores-item:hover{
-  filter: brightness(100%);
-      background: rgb(255, 255, 255);
-      border-radius: 10px;
-      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.199);
-
+.colaboradores-item:hover {
+    filter: brightness(100%);
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.199);
 }
-.copy--margin-none{
-  margin-top: 0;
+.copy--margin-none {
+    margin-top: 0;
+}
+.contenido-trix{
+    font-family: "Roboto", sans-serif;
+}
+.contenido-trix>h1,strong{
+    color: #fb8840;
+}
+.contenido-trix>h1{
+    text-align: center;
+    font-size: 1.4rem;
 }
 @media screen and (min-width: 768px) {
     .donaciones__title {
         margin: 0;
-      }
-    .card{
-      width: 32%;
     }
-    .colaboradores-box{
+    .card {
+        width: 32%;
+    }
+    .colaboradores-box {
         margin: auto;
     }
-    .colaboradores-item{
-      width: max-content;
-	}
+    .colaboradores-item {
+        width: max-content;
+    }
     .mapa {
         margin-bottom: 0;
     }
@@ -574,18 +576,17 @@ p {
         margin: auto;
     }
     .mapa__info {
-        width: 100%;
+        width: 100vw;
         padding: 0;
     }
     .mapa-box {
         width: 50%;
     }
     .mapa__contacts {
-      margin: auto;
+        margin: auto;
         order: -1;
     }
     .mapa__contact {
-
         margin: 5px 0;
         text-align: left;
         font-size: 1.1rem;
@@ -628,90 +629,93 @@ p {
     .contactos-wsp {
         max-width: max-content;
     }
+    .img__show-project{
+        width: 400px;
+    }
 }
 @media screen and (min-width: 1024px) {
     .container {
         max-width: 85%;
     }
     .container-nav {
-      max-width: 85%;
-      left: 50%;
-      transform: translateX(-50%);
-  }
-  .menu-contenedor {
-      display: flex;
-      height: 74px;
-      justify-content: space-between;
-      align-items: flex-end;
-      background: var(--light);
-  }
-  .menu-bar-container {
-      display: block;
-      margin: 0;
-      padding: 0;
-      box-shadow: none;
-  }
-  .menu-bar {
-      display: block;
-  }
-  .nav-bar {
-      display: none;
-  }
-  .main-nav {
-      height: max-content;
-      position: static;
-      overflow: hidden;
-      width: max-content;
-  }
-  
-  .menu {
-      display: flex;
-      min-height: max-content;
-      overflow: hidden;
-      width: max-content;
-  }
-  .submenu {
-      position: absolute;
-      top: 74px;
-      height: max-content;
-      z-index: 99999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.2s;
-  }
-  .submenu .menu__link {
-      padding: 15px;
-  }
-  .menu__link {
-      background: none;
-      color: var(--secondary);
-      font-size: 1rem;
-  }
-  .container-submenu {
-      height: max-content;
-  }
-  .container-submenu:hover {
-      position: static;
-      height: max-content;
-      background: transparent;
-  }
-  .container-submenu i {
-      transition: all 0.2s;
-  }
-  .container-submenu:hover i {
-      transform: rotate(-180deg);
-  }
-  .container-submenu:hover .submenu {
-      height: max-content;
-      opacity: 1;
-      visibility: visible;
-      border: 1px solid rgba(41, 41, 41, 0.178);
-      border-top: none;
-  }
-  .menu__link:hover {
-      background: var(--secondary);
-      color: white;
-  }
+        max-width: 85%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .menu-contenedor {
+        display: flex;
+        height: 74px;
+        justify-content: space-between;
+        align-items: flex-end;
+        background: var(--light);
+    }
+    .menu-bar-container {
+        display: block;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+    .menu-bar {
+        display: block;
+    }
+    .nav-bar {
+        display: none;
+    }
+    .main-nav {
+        height: max-content;
+        position: static;
+        overflow: hidden;
+        width: max-content;
+    }
+
+    .menu {
+        display: flex;
+        min-height: max-content;
+        overflow: hidden;
+        width: max-content;
+    }
+    .submenu {
+        position: absolute;
+        top: 74px;
+        height: max-content;
+        z-index: 99999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+    }
+    .submenu .menu__link {
+        padding: 15px;
+    }
+    .menu__link {
+        background: none;
+        color: var(--secondary);
+        font-size: 1rem;
+    }
+    .container-submenu {
+        height: max-content;
+    }
+    .container-submenu:hover {
+        position: static;
+        height: max-content;
+        background: transparent;
+    }
+    .container-submenu i {
+        transition: all 0.2s;
+    }
+    .container-submenu:hover i {
+        transform: rotate(-180deg);
+    }
+    .container-submenu:hover .submenu {
+        height: max-content;
+        opacity: 1;
+        visibility: visible;
+        border: 1px solid rgba(41, 41, 41, 0.178);
+        border-top: none;
+    }
+    .menu__link:hover {
+        background: var(--secondary);
+        color: white;
+    }
     .proyectos {
         margin: 50px auto;
     }
@@ -740,8 +744,13 @@ p {
         object-fit: cover;
     }
     .mapa__info {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-  }
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100vw;
+    }
+    .trix-contenido{
+        height: 500px;
+        overflow-y: scroll;
+    }
 }

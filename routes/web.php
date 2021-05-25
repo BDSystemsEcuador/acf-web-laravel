@@ -12,8 +12,8 @@ Route::get('/', [InicioController::class,'index']);
 Route::get('/quienes_somos', function (){
     return view('paginas.quienes.index');
         })->name('quienes.inicio');
-Route::resource('proyectos', ProyectoController::class);
 
+Route::get('/proyecto/{proyecto}', [ProyectoController::class,'show'])->name('proyecto.show');
 Auth::routes();
 //administrador
 Route::prefix('admin')->group(function () {

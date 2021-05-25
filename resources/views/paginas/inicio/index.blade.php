@@ -1,5 +1,9 @@
 @extends('layouts.main')
 @section('title','Alas de Colibrí')
+@section('styles')
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+@endsection
 @section('body')
 <div class="inicio" id="inicioid">
     <section>
@@ -103,7 +107,7 @@
             <p class="card__txt">
                 {{$proyecto->mini_descripcion}}
             </p>
-            <a href="proyectos" class="btn-morado card--btn">Leer más <i class="fas fa-chevron-right"></i></a>
+            <a href="{{route('proyecto.show',$proyecto->id)}}" class="btn-morado card--btn">Leer más <i class="fas fa-chevron-right"></i></a>
         </div>
         @endforeach
 

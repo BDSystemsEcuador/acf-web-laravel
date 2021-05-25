@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Projects\StoreProjectRequest;
+use App\Http\Requests\Projects\UpdateProjectRequest;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::orderBy('id','desc')->simplePaginate(4);
+        $proyectos = Proyecto::orderBy('id','desc')->simplePaginate(8);
         return view('administrador.proyectos.index',compact('proyectos'));
     }
 
@@ -35,7 +37,7 @@ class ProyectoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
         $newProyecto= new Proyecto;
         $newProyecto->titulo = $request->input('titulo');
@@ -57,7 +59,7 @@ class ProyectoController extends Controller
      */
     public function show(Proyecto $proyecto)
     {
-        return view('paginas.proyecto.show');
+        return view('paginas.proyecto.show',compact('proyecto'));
     }
 
     /**
@@ -78,7 +80,7 @@ class ProyectoController extends Controller
      * @param  \App\Models\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proyecto $proyecto)
+    public function update(UpdateProjectRequest $request, Proyecto $proyecto)
     {
         $proyectoFind=Proyecto::findOrFail($proyecto->id);
         $proyectoFind->titulo = $request->input('titulo');
