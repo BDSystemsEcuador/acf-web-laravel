@@ -22,7 +22,7 @@ class SliderFactory extends Factory
     public function definition()
     {
         return [
-            'titulo' => $this->faker->title(),
+            'titulo' => $this->faker->text(20),
             'descripcion' => $this->faker->text(),
             'imagen' => $this->faker->image()
         ];
