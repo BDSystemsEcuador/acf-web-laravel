@@ -39,6 +39,11 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $newSlider= new Slider;
+        $request->validate([
+            'titulo'=>'required',
+            'descripcion'=>'required',
+            'imagen'=>'required'
+        ]);
         $newSlider->titulo = $request->input('titulo');
         $newSlider->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
