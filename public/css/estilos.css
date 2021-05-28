@@ -16,7 +16,7 @@
 /*----------------------Estilos generales-----------------------------------*/
 body {
     font-family: "Bahnschrift", sans-serif;
-    background: rgb(255, 255, 255);
+    background: rgb(248, 248, 248);
 }
 img {
     width: 100%;
@@ -544,6 +544,13 @@ p {
 }
 .contenido-trix{
     font-family: "Roboto", sans-serif;
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.123);
+    display:inline-block;
+    margin: 20px 0px;
+        
 }
 .contenido-trix>h1,strong{
     color: #fb8840;
@@ -630,7 +637,10 @@ p {
         max-width: max-content;
     }
     .img__show-project{
-        width: 400px;
+        display: block;
+        width: 600px;
+        margin: 30px auto;
+        border-radius: 5px;
     }
 }
 @media screen and (min-width: 1024px) {
