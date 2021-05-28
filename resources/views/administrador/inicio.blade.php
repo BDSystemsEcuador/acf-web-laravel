@@ -1,6 +1,5 @@
 @extends('administrador.layouts.main')
 @section('admin')
-<h5 class="text-center text-danger mb-3">Fundación Alas de Colibrí</h5>
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
@@ -9,12 +8,12 @@
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-        <div class="accordion-body p-0 row">
-          <div class="col-md-6">
-            <a href="{{route('sliders.index')}}" class="btn btn-outline-dark d-block m-2">Galería</a>
+        <div class="accordion-body p-3 row">
+          <div class="col-md-2">
+            <a href="{{route('sliders.index')}}" class="btn btn-outline-primary d-block py-3">Galería</a>
           </div>
-          <div class="col-md-6">
-            <a href="{{route('proyectos.index')}}" class="btn btn-outline-dark d-block m-2 ">Proyectos</a>
+          <div class="col-md-2">
+            <a href="{{route('proyectos.index')}}" class="btn btn-outline-primary d-block py-3">Proyectos</a>
           </div>
         </div>
       </div>
