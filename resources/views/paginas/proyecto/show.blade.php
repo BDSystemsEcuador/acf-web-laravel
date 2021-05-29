@@ -5,12 +5,11 @@
 @section('title','Alas de Colibrí')
 @section('body')
 <div class="container">
-  <br>
-      <h1 class="copy-title">{{$proyecto->titulo}}</h1>
-      <div class="contenido-trix">
+  <div class="contenido-trix">
+        <h1 class="copy-title">{{$proyecto->titulo}}</h1>
+        <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="img__show-project"/>
         {!!$proyecto->descripcion!!}
       </div>
-      <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="img__show-project"/>
 
 </div>
 
