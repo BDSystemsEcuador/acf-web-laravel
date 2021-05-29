@@ -16,18 +16,16 @@ $camposQ = $provider->serviceQuienes();
 var formsData = [];
 var colaboradorPost = false;
 var colaboradorDelete = false;
-var colaboradorPost = false;
-var colaboradorPost = false;
-
+var colaboradorUpdate = false;
 
 
 $(document).ready(function(){
 
-/*Debug Function
+    /*Debug Function
     $("#editabletag").click(function(){
 	alert('holamundo');
     });
-*/
+     */
 
     $("#editabletag").click(function(){
 	alert('holamundo');
@@ -85,7 +83,7 @@ $(document).ready(function(){
 	}
 
 	SaveApi(formsData);
-	console.log(formsData);
+	//console.log(formsData);
 	// Output the result
 	$('#exporttext').text($data);
 
@@ -95,16 +93,138 @@ $(document).ready(function(){
 
     $("#newColaborador").click(function(){
 	//alert('holamundo');
-    $(".newColaboradorCuadro").show();
-    $("#newColaborador").hide();
+	colaboradorPost = true;
+	$(".newColaboradorCuadro").show();
+	$("#newColaborador").hide();
     });
 
 
-    $("#editableColaborador").click(function(){
+    $("#cancelNewColaborator").click(function(){
 	//alert('holamundo');
-    $(this).hide();
-$(this).siblings('.editableColaboradorButtons').show();
+	colaboradorPost = false;
+	$(".newColaboradorCuadro").hide();
+	$("#newColaborador").show();
     });
+
+    $(".editableColaborador").click(function(){
+	//alert('holamundo');
+	colaboradorUpdate = true;
+	$(this).hide();
+	$(this).siblings('.editableColaboradorButtons').show();
+	$(this).siblings('.cancelEditableColaborator').show();
+	$(this).siblings('.deletableColaborador').hide();
+	$(this).siblings('.editableColaboradorButtons').addClass( "changedColaboratorButtons" );
+    });
+
+
+    $(".cancelEditableColaborator").click(function(){
+	//alert('holamundo');
+	$(this).hide();
+	$(this).siblings('.editableColaboradorButtons').hide();
+	$(this).siblings('.deletableColaborador').show();
+	$(this).siblings('.editableColaborador').show();
+	$(this).siblings('.editableColaboradorButtons').removeClass( "changedColaboratorButtons" );
+    });
+
+    $(".deletableColaborador").click(function(){
+	colaboradorDelete=true;
+	$(this).siblings('.editableColaborador').toggle();
+	$(this).toggleClass('deletableColaboradorSelected');
+	$(this).siblings('.editableColaboradorButtons').toggleClass( "deletedColaboratorButtons" );
+    });
+
+    $("#saveColaborators").click(function(){
+
+	var $headers = ['id','name','link'];
+	var $data = [];
+	var $counter = 0;
+
+	if (colaboradorPost) {
+
+	    var $row = [];
+
+	    $('.newColaboradorPost input').each(function(index, item) {
+		var $texto= $(this).val();
+		$row.push($texto);
+		//console.log($texto); 
+	    });
+
+	    $row.splice(2,2); 
+	    console.log($row); 
+	    //$headers=[].concat.apply([], $headers);
+	    //$headers = arrslugify($headers);
+
+	    $ColabForm = new FormData();
+	    $ColabForm.append($headers[1],$row[0]);
+	    $ColabForm.append($headers[2],$row[1]);
+
+	    SaveApiColaboratorPost($ColabForm,"{{route('colaborador.store')}}");
+
+	}
+
+	if (colaboradorDelete) {
+
+	var $row = [];
+
+	$('.deletedColaboratorButtons input[name="idColaborator"]').each(function(index, item) {
+	var $texto= $(this).val();
+	$row.push($texto);
+	});
+
+	if ($row.length>0){
+
+	    $row.forEach(function($element) {
+		var $URL ="{{route('colaborador.store')}}/"+$element ;
+		SaveApiColaboratorDelete($URL);
+
+	    })
+	}
+
+
+	}
+
+	if (colaboradorUpdate) {
+
+	    var $row = [];
+	    var $rows = [];
+
+	    $('.changedColaboratorButtons').each(function(index, item) {
+		$('input',this).each(function(){
+		    var $texto= $(this).val();
+		    $row.push($texto);
+		    //console.log($texto); 
+		});
+
+		$row.splice(3,2);
+		$rows.push($row);
+		$row = [];
+	    });
+
+	    if ($rows.length>0){
+
+		$rows.forEach(function($element) {
+
+		    $ColabForm = new FormData();
+		    $ColabForm.append($headers[0],$element[0]);
+		    $ColabForm.append($headers[1],$element[1]);
+		    $ColabForm.append($headers[2],$element[2]);
+
+		    var $photo = document.getElementById('colaboradorUpdateImage:'+$element[0]).files[0];
+		    $ColabForm.append("image",$photo);
+
+		    SaveApiColaboratorUpdate($ColabForm,$element[0]);
+
+		})
+
+	    }
+
+	}
+
+
+    });
+
+
+
     //Colaboradores section fin
 
 });
@@ -169,7 +289,6 @@ function SaveApi(lis){
 
     //return lis
 }
-
 
 //Service Closure
 

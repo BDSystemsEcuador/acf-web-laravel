@@ -1,8 +1,8 @@
-@inject('provider', 'App\Http\Controllers\ServiceQuienesController')
+@inject('provider', 'App\Http\Controllers\ServiceColaboradoresController')
 
 <?php 
 
-$camposQ = $provider->serviceQuienes();
+$camposC = $provider->serviceColaboradores();
 
 ?>
 
@@ -59,6 +59,10 @@ $camposQ = $provider->serviceQuienes();
      background: none;
      cursor: pointer;
      font-weight: bold;
+ }
+
+ .deletableColaboradorSelected {
+     color: var(--lightgrey);
  }
 
  .cuadro-input {
@@ -147,97 +151,118 @@ $camposQ = $provider->serviceQuienes();
      display:none;
  }
 
+
 </style>
 
 <div class="container-fluid">
-    
-
-    <!-- repeated elements -->
-
 
     <div class="row" id="contentCuadro"> 
 
+	<!-- repeated elements -->
+
+	@for ($i = 0; $i < count($camposC); $i++)
+
 	<div class="smallCuadro">
 	    <article class="insideCuadro">
+
 		<div class="cuadro-box">
-		    <img src="#"  width="1500" height="1368" alt="">
+		    <img src="{{Storage::url($camposC[$i]['image'])}}" class="img-responsive" width="1500" height="1368" href="{{$camposC[$i]['link']}}"alt="..." />
 		</div>
+
 		<div class="cuadro-content">
 
-		    <h1 class="cuadro-title"><a href="#">Nombre</a></h1>
+		    <h1 class="cuadro-title"><a href="#">{{ $camposC[$i]['name']}}</a></h1>
 
-		    <p class="cuadro-desc">direccion</p>
+		    <p class="cuadro-desc">{{$camposC[$i]['link']}}</p>
 
-		    <button id="editableColaborador"class="cuadro-save" type="button">
+		    <button class="cuadro-save editableColaborador" type="button">
 			Editar
 		    </button>
+		    <button class="cuadro-save deletableColaborador" type="button">
+			Eliminar
+		    </button>
 
-			<div class="editableColaboradorButtons">
+		    <div class="editableColaboradorButtons">
 
-			    <input class="cuadro-input-text" type="text" id="" placeholder="Nombre"/>
+			<input  style='display:none' name="idColaborator" type="text" id="" value="{{$camposC[$i]['id']}}" readonly/>
 
-			    <input class="cuadro-input-text" type="text" id="" placeholder="Dirección web"/>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['name']}}" placeholder="Nombre"/>
 
-			    <label class="cuadro-input" >Imagen
-				<input type="file" accept="image/*" id="" name="file" style="display:none" />
-			    </label>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['link']}}" placeholder="Dirección web"/>
 
-			</div>
+			<label class="cuadro-input" >Imagen
+			    <input type="file" accept="image/*" id="colaboradorUpdateImage:{{$camposC[$i]['id']}}" name="file" style="display:none" />
+			</label>
+
+		    </div>
+
+		    <br/>
+		    <button class="cancelEditableColaborator" type="button" style='display:none'>
+			Cancelar edición
+		    </button>
 
 		</div>
 
 	    </article>
 
+	</div>
+	@endfor
+
+	<!-- fin repeated elements -->
+
+	<!-- new elements -->
+
+	<div class="smallCuadro newColaboradorCuadro">
+	    <article class="insideCuadro">
+		<div class="cuadro-box" id="id-cuadro-box">
 		</div>
+		<div class="cuadro-content newColaboradorPost">
 
-		<!-- fin repeated elements -->
+		    <h1 class="cuadro-title"><a href="#">Nuevo partner</a></h1>
 
-		<!-- new elements -->
+		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Nombre"/>
 
-		<div class="smallCuadro newColaboradorCuadro">
-		    <article class="insideCuadro">
-			<div class="cuadro-box" id="id-cuadro-box">
-			</div>
-			<div class="cuadro-content">
+		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Dirección web"/>
 
-			    <h1 class="cuadro-title"><a href="#">Nuevo</a></h1>
+		    <label class="cuadro-input" >Imagen
+			<input type="file" accept="image/*" id="fileNewColaboradorInput" name="file" style="display:none" />
+		    </label>
 
-			    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Nombre"/>
-
-			    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Dirección web"/>
-
-			    <label class="cuadro-input" >Imagen
-				<input type="file" accept="image/*" id="fileColaboradorInput" name="file" style="display:none" />
-			    </label>
-
-		    </article>
-
-
-			</div>
-
-			<!-- fin new elements -->
-
-			<div class="buttonsColaborador">
-
-			    <div class="button_cont" id="editableColaborador" align="center"><a class="example_b" href="#" onclick="return false;" >Guardar cambios</a></div>
-
-			    <div class="button_cont" id="newColaborador" align="center"><a class="example_b" href="#" onclick="return false;" >Nuevo colaborador</a></div>
-
-			    <div class="button_cont" align="center"><a class="example_b" href="#" onclick="return false;" >Cancelar</a></div>
-			</div>
-
-
+		    <br/>
+		    <button id="cancelNewColaborator" type="button">
+			Cancelar nuevo
+		    </button>
 
 		</div>
 
+	    </article>
 
 
 	</div>
 
+	<!-- fin new elements -->
+
+	<div class="buttonsColaborador">
+
+	    <div class="button_cont" id="saveColaborators" align="center"><a class="example_b" href="#" onclick="return false;" >Guardar cambios</a></div>
+
+	    <div class="button_cont" id="newColaborador" align="center"><a class="example_b" href="#" onclick="return false;" >Nuevo colaborador</a></div>
+
+	    <div class="button_cont" align="center"><a class="example_b" href="#" onclick="location.reload()" >Cancelar</a></div>
+	</div>
+
+
+
+    </div>
+
+
+
+</div>
+
     
 <script charset="utf-8">
 
-const chooseFile = document.getElementById("fileColaboradorInput");
+const chooseFile = document.getElementById("fileNewColaboradorInput");
 const imgPreview = document.getElementById("id-cuadro-box");
 
 chooseFile.addEventListener("change", function () {
@@ -255,6 +280,90 @@ function getImgData() {
   }
 }
 
+
+//Service colaborador wrapper
+
+function SaveApiColaboratorPost(lis,link){
+
+	console.log('enviando nuevo colobarador');
+	var photo = document.getElementById('fileNewColaboradorInput').files[0];
+	lis.append("image", photo);
+
+/*
+	    for (var value of lis.values()) {
+		console.log(value);
+	    }
+	    */
+
+	this.sendRequestColaboradores(lis,link);
+
+}
+
+
+//Service colaborador wrapper update
+
+function SaveApiColaboratorUpdate(lis,id){
+
+	console.log('modificando colobarador');
+	lis.append("_method", "PUT");
+	let link ="{{route('colaborador.store')}}/"+id 
+	this.sendRequestColaboradores(lis,link);
+
+}
+
+
+//Service colaborador wrapper delete
+
+async function SaveApiColaboratorDelete(link){
+
+	try {
+	    let r = await fetch(link, 
+		{method: "DELETE", 
+		    headers: {"X-CSRF-TOKEN": "{{ csrf_token() }}"}
+		    //,signal: ctrl.signal
+		}); 
+	    console.log('HTTP response code:',r.status); 
+
+	} catch (err) {
+	    if (err.response) {
+		throw("httpError"+
+		    `${err.response.statusText} - ${err.response.status}`);
+	    } else {
+		throw("httpError", "HTTP doesnt response");
+	    }
+	    throw err;
+
+	}
+
+}
+
+//Service Closure Colaboradores
+
+
+    async function sendRequestColaboradores(apiObject,link) {
+	    //console.log(apiObject); 
+
+	try {
+	    let r = await fetch(link, 
+		{method: "POST", 
+		    body: apiObject, 
+		    headers: {"X-CSRF-TOKEN": "{{ csrf_token() }}"}
+		    //,signal: ctrl.signal
+		}); 
+	    console.log('HTTP response code:',r.status); 
+
+	} catch (err) {
+	    if (err.response) {
+		throw("httpError"+
+		    `${err.response.statusText} - ${err.response.status}`);
+	    } else {
+		throw("httpError", "HTTP doesnt response");
+	    }
+	    throw err;
+
+	}
+
+    }
 
 </script>
 
