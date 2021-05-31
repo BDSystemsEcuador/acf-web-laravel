@@ -8,15 +8,24 @@ use Illuminate\Support\Facades\Storage;
 
 class ColaboratorsController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-
+        //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -27,22 +36,23 @@ class ColaboratorsController extends Controller
      */
     public function store(Request $request)
     {
-	//dd($request->input('seccion'));
-	dd($request->all());
-	//$test= "hola";
-	//$response = $test;
-        $newRow= new Quienes;
-        $newRow->seccion = $request->input('seccion');
-        $newRow->titulo = $request->input('titulo');
-        $newRow->contenido = $request->input('contenido');
-        if($request->hasFile('photo')){
-            $newRow['imagen']=$request->file('photo')->store('uploads/quienes','public');
+	//dd($request->all());
+        $newRow= new Colaborator;
+        $newRow->name = $request->input('name');
+        $newRow->link = $request->input('link');
+        if($request->hasFile('image')){
+            $newRow['image']=$request->file('image')->store('uploads/colaboradores','public');
         }
         $newRow->save();
+}
 
-    }
-
-    public function show(Quienes $quienes)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
         //
     }
@@ -50,10 +60,10 @@ class ColaboratorsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Quienes  $quienes
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Quienes $quienes)
+    public function edit($id)
     {
         //
     }
@@ -62,30 +72,37 @@ class ColaboratorsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Quienes  $quienes
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Quienes $quienes_somo)
+    public function update(Request $request,$id)
     {
-	//dd($request->all());
-
-        $currentRow=Quienes::findOrFail($quienes_somo->id);
-        $currentRow->seccion = $request->input('seccion');
-        $currentRow->titulo = $request->input('titulo');
-        $currentRow->contenido = $request->input('contenido');
-        $filename= $request->input('seccion');
-        if($request->hasFile('photo')){
-	    $guessExtension = $request->file('photo')->guessExtension();
+        $currentRow=Colaborator::findOrFail($id);
+        $currentRow->name = $request->input('name');
+        $currentRow->link = $request->input('link');
+        $filename= $request->input('name');
+        if($request->hasFile('image')){
+	    $guessExtension = $request->file('image')->guessExtension();
 	    $newfilename=$filename.'.'.$guessExtension;
 	    // Deleting old file and and adding new
-	    Storage::delete('uploads/quienes'.$newfilename);
-	    $currentRow['imagen']=$request->file('photo')->storeAs('uploads/quienes',$filename.'.'.$guessExtension, 'public');
+	    Storage::delete('uploads/colaboradores'.$newfilename);
+	    $currentRow['image']=$request->file('image')->storeAs('uploads/colaboradores',$filename.'.'.$guessExtension, 'public');
         }
         $currentRow->save();
+
     }
 
-    public function destroy(Quienes $quienes)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        //
+        $currentRow=Colaborator::findOrFail($id);
+	//dd($currentRow['image']);
+	   Storage::disk('public')->delete($currentRow['image']);
+           $currentRow->delete();
     }
 }

@@ -16,18 +16,19 @@ $camposQ = $provider->serviceQuienes();
 var formsData = [];
 var colaboradorPost = false;
 var colaboradorDelete = false;
-var colaboradorPost = false;
-var colaboradorPost = false;
+var colaboradorUpdate = false;
 
-
+var contactoPost = false;
+var contactoDelete = false;
+var contactoUpdate = false;
 
 $(document).ready(function(){
 
-/*Debug Function
+    /*Debug Function
     $("#editabletag").click(function(){
 	alert('holamundo');
     });
-*/
+     */
 
     $("#editabletag").click(function(){
 	alert('holamundo');
@@ -85,7 +86,7 @@ $(document).ready(function(){
 	}
 
 	SaveApi(formsData);
-	console.log(formsData);
+	//console.log(formsData);
 	// Output the result
 	$('#exporttext').text($data);
 
@@ -95,17 +96,268 @@ $(document).ready(function(){
 
     $("#newColaborador").click(function(){
 	//alert('holamundo');
-    $(".newColaboradorCuadro").show();
-    $("#newColaborador").hide();
+	colaboradorPost = true;
+	$(".newColaboradorCuadro").show();
+	$("#newColaborador").hide();
     });
 
 
-    $("#editableColaborador").click(function(){
+    $("#cancelNewColaborator").click(function(){
 	//alert('holamundo');
-    $(this).hide();
-$(this).siblings('.editableColaboradorButtons').show();
+	colaboradorPost = false;
+	$(".newColaboradorCuadro").hide();
+	$("#newColaborador").show();
     });
+
+    $(".editableColaborador").click(function(){
+	//alert('holamundo');
+	colaboradorUpdate = true;
+	$(this).hide();
+	$(this).siblings('.editableColaboradorButtons').show();
+	$(this).siblings('.cancelEditableColaborator').show();
+	$(this).siblings('.deletableColaborador').hide();
+	$(this).siblings('.editableColaboradorButtons').addClass( "changedColaboratorButtons" );
+    });
+
+
+    $(".cancelEditableColaborator").click(function(){
+	//alert('holamundo');
+	$(this).hide();
+	$(this).siblings('.editableColaboradorButtons').hide();
+	$(this).siblings('.deletableColaborador').show();
+	$(this).siblings('.editableColaborador').show();
+	$(this).siblings('.editableColaboradorButtons').removeClass( "changedColaboratorButtons" );
+    });
+
+    $(".deletableColaborador").click(function(){
+	colaboradorDelete=true;
+	$(this).siblings('.editableColaborador').toggle();
+	$(this).toggleClass('deletableColaboradorSelected');
+	$(this).siblings('.editableColaboradorButtons').toggleClass( "deletedColaboratorButtons" );
+    });
+
+    $("#saveColaborators").click(function(){
+
+	var $headers = ['id','name','link'];
+	var $data = [];
+	var $counter = 0;
+
+	if (colaboradorPost) {
+
+	    var $row = [];
+
+	    $('.newColaboradorPost input').each(function(index, item) {
+		var $texto= $(this).val();
+		$row.push($texto);
+		//console.log($texto); 
+	    });
+
+	    $row.splice(2,2); 
+	    console.log($row); 
+	    //$headers=[].concat.apply([], $headers);
+	    //$headers = arrslugify($headers);
+
+	    $ColabForm = new FormData();
+	    $ColabForm.append($headers[1],$row[0]);
+	    $ColabForm.append($headers[2],$row[1]);
+
+	    SaveApiColaboratorPost($ColabForm,"{{route('colaborador.store')}}");
+
+	}
+
+	if (colaboradorDelete) {
+
+	var $row = [];
+
+	$('.deletedColaboratorButtons input[name="idColaborator"]').each(function(index, item) {
+	var $texto= $(this).val();
+	$row.push($texto);
+	});
+
+	if ($row.length>0){
+
+	    $row.forEach(function($element) {
+		var $URL ="{{route('colaborador.store')}}/"+$element ;
+		SaveApiColaboratorDelete($URL);
+
+	    })
+	}
+
+
+	}
+
+	if (colaboradorUpdate) {
+
+	    var $row = [];
+	    var $rows = [];
+
+	    $('.changedColaboratorButtons').each(function(index, item) {
+		$('input',this).each(function(){
+		    var $texto= $(this).val();
+		    $row.push($texto);
+		    //console.log($texto); 
+		});
+
+		$row.splice(3,2);
+		$rows.push($row);
+		$row = [];
+	    });
+
+	    if ($rows.length>0){
+
+		$rows.forEach(function($element) {
+
+		    $ColabForm = new FormData();
+		    $ColabForm.append($headers[0],$element[0]);
+		    $ColabForm.append($headers[1],$element[1]);
+		    $ColabForm.append($headers[2],$element[2]);
+
+		    var $photo = document.getElementById('colaboradorUpdateImage:'+$element[0]).files[0];
+		    $ColabForm.append("image",$photo);
+
+		    SaveApiColaboratorUpdate($ColabForm,$element[0]);
+
+		})
+
+	    }
+
+	}
+
+
+    });
+
     //Colaboradores section fin
+
+    //Contactos section
+
+    $("#newContacto").click(function(){
+	//alert('holamundo');
+	contactoPost = true;
+	$(".newContactoCuadro").show();
+	$("#newContacto").hide();
+    });
+
+
+    $("#cancelNewContacto").click(function(){
+	//alert('holamundo');
+	contactoPost = false;
+	$(".newContactoCuadro").hide();
+	$("#newContacto").show();
+    });
+
+    $(".editableContacto").click(function(){
+	//alert('holamundo');
+	contactoUpdate = true;
+	$(this).hide();
+	$(this).siblings('.editableContactoButtons').show();
+	$(this).siblings('.cancelEditableContacto').show();
+	$(this).siblings('.deletableContacto').hide();
+	$(this).siblings('.editableContactoButtons').addClass( "changedContactoButtons" );
+    });
+
+
+    $(".cancelEditableContacto").click(function(){
+	//alert('holamundo');
+	$(this).hide();
+	$(this).siblings('.editableContactoButtons').hide();
+	$(this).siblings('.deletableContacto').show();
+	$(this).siblings('.editableContacto').show();
+	$(this).siblings('.editableContactoButtons').removeClass( "changedContactoButtons" );
+    });
+
+    $(".deletableContacto").click(function(){
+	contactoDelete=true;
+	$(this).siblings('.editableContacto').toggle();
+	$(this).toggleClass('deletableContactoSelected');
+	$(this).siblings('.editableContactoButtons').toggleClass( "deletedContactoButtons" );
+    });
+
+    $("#saveContacto").click(function(){
+
+	var $headers = ['id','name','movil_phone','telephone','e_mail'];
+	var $data = [];
+	var $counter = 0;
+
+	if (contactoPost) {
+
+	    var $row = [];
+
+	    $('.newContactoPost input').each(function(index, item) {
+		var $texto= $(this).val();
+		$row.push($texto);
+		//console.log($texto); 
+	    });
+console.log($row); 
+
+	    $ContcForm = new FormData();
+	    $ContcForm.append($headers[1],$row[0]);
+	    $ContcForm.append($headers[2],$row[1]);
+	    $ContcForm.append($headers[3],$row[2]);
+	    $ContcForm.append($headers[4],$row[3]);
+
+	    SaveApiContactoPost($ContcForm,"{{route('contacto.store')}}");
+
+	}
+
+	if (contactoDelete) {
+
+	var $row = [];
+
+	$('.deletedContactoButtons input[name="idContacto"]').each(function(index, item) {
+	var $texto= $(this).val();
+	$row.push($texto);
+	});
+
+	if ($row.length>0){
+
+	    $row.forEach(function($element) {
+		var $URL ="{{route('contacto.store')}}/"+$element ;
+		SaveApiContactoDelete($URL);
+
+	    })
+	}
+
+
+	}
+
+	if (contactoUpdate) {
+
+	    var $row = [];
+	    var $rows = [];
+
+	    $('.changedContactoButtons').each(function(index, item) {
+		$('input',this).each(function(){
+		    var $texto= $(this).val();
+		    $row.push($texto);
+		    //console.log($texto); 
+		});
+
+		$rows.push($row);
+		$row = [];
+	    });
+
+	    if ($rows.length>0){
+
+		$rows.forEach(function($element) {
+
+		    $ContcForm = new FormData();
+		    $ContcForm.append($headers[1],$element[1]);
+		    $ContcForm.append($headers[2],$element[2]);
+		    $ContcForm.append($headers[3],$element[3]);
+		    $ContcForm.append($headers[4],$element[4]);
+
+		    SaveApiContactoUpdate($ContcForm,$element[0]);
+
+		})
+
+	    }
+
+	}
+
+
+    });
+
+    //Contactos section fin
 
 });
 
@@ -169,7 +421,6 @@ function SaveApi(lis){
 
     //return lis
 }
-
 
 //Service Closure
 

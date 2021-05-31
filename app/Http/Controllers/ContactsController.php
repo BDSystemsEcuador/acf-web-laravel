@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Quienes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Contact;
 
-class QuienesController extends Controller
+class ContactsController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return view('paginas.quienes.index');
+        //
     }
 
     /**
@@ -32,22 +35,22 @@ class QuienesController extends Controller
      */
     public function store(Request $request)
     {
-	//dd($request->input('seccion'));
-	dd($request->all());
-	//$test= "hola";
-	//$response = $test;
-        $newRow= new Quienes;
-        $newRow->seccion = $request->input('seccion');
-        $newRow->titulo = $request->input('titulo');
-        $newRow->contenido = $request->input('contenido');
-        if($request->hasFile('photo')){
-            $newRow['imagen']=$request->file('photo')->store('uploads/quienes','public');
-        }
+	//dd($request->all());
+        $newRow= new Contact;
+        $newRow->name = $request->input('name');
+        $newRow->movil_phone = $request->input('movil_phone');
+        $newRow->telephone = $request->input('telephone');
+        $newRow->e_mail = $request->input('e_mail');
         $newRow->save();
-
     }
 
-    public function show(Quienes $quienes)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
         //
     }
@@ -55,10 +58,10 @@ class QuienesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Quienes  $quienes
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Quienes $quienes)
+    public function edit($id)
     {
         //
     }
@@ -67,36 +70,31 @@ class QuienesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Quienes  $quienes
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Quienes $quienes_somo)
-    {
-	//dd($request->all());
 
-        $currentRow=Quienes::findOrFail($quienes_somo->id);
-        $currentRow->seccion = $request->input('seccion');
-        $currentRow->titulo = $request->input('titulo');
-        $currentRow->contenido = $request->input('contenido');
-        $filename= $request->input('seccion');
-        if($request->hasFile('photo')){
-	    $guessExtension = $request->file('photo')->guessExtension();
-	    $newfilename=$filename.'.'.$guessExtension;
-	    // Deleting old file and and adding new
-	    Storage::delete('uploads/quienes'.$newfilename);
-	    $currentRow['imagen']=$request->file('photo')->storeAs('uploads/quienes',$filename.'.'.$guessExtension, 'public');
-        }
+    public function update(Request $request, $id)
+    {
+        $currentRow=Contact::findOrFail($id);
+        $currentRow->name = $request->input('name');
+        $currentRow->movil_phone = $request->input('movil_phone');
+        $currentRow->telephone = $request->input('telephone');
+        $currentRow->e_mail = $request->input('e_mail');
         $currentRow->save();
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Quienes  $quienes
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Quienes $quienes)
+    public function destroy($id)
     {
-        //
+        $currentRow=Contact::findOrFail($id);
+	//dd($currentRow['image']);
+           $currentRow->delete();
     }
 }

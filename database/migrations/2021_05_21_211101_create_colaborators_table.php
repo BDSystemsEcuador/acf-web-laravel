@@ -15,9 +15,9 @@ class CreateColaboratorsTable extends Migration
     {
         Schema::create('colaborators', function (Blueprint $table) {
             $table->id();
-	    $table->string('name', 100);
-	    $table->string('link');
-	    $table->string('image');
+	    $table->string('name', 100)->nullable();
+	    $table->string('link')->nullable();
+	    $table->string('image')->nullable();
             $table->timestamps();
         });
     }
