@@ -18,6 +18,9 @@ var colaboradorPost = false;
 var colaboradorDelete = false;
 var colaboradorUpdate = false;
 
+var contactoPost = false;
+var contactoDelete = false;
+var contactoUpdate = false;
 
 $(document).ready(function(){
 
@@ -223,9 +226,138 @@ $(document).ready(function(){
 
     });
 
-
-
     //Colaboradores section fin
+
+    //Contactos section
+
+    $("#newContacto").click(function(){
+	//alert('holamundo');
+	contactoPost = true;
+	$(".newContactoCuadro").show();
+	$("#newContacto").hide();
+    });
+
+
+    $("#cancelNewContacto").click(function(){
+	//alert('holamundo');
+	contactoPost = false;
+	$(".newContactoCuadro").hide();
+	$("#newContacto").show();
+    });
+
+    $(".editableContacto").click(function(){
+	//alert('holamundo');
+	contactoUpdate = true;
+	$(this).hide();
+	$(this).siblings('.editableContactoButtons').show();
+	$(this).siblings('.cancelEditableContacto').show();
+	$(this).siblings('.deletableContacto').hide();
+	$(this).siblings('.editableContactoButtons').addClass( "changedContactoButtons" );
+    });
+
+
+    $(".cancelEditableContacto").click(function(){
+	//alert('holamundo');
+	$(this).hide();
+	$(this).siblings('.editableContactoButtons').hide();
+	$(this).siblings('.deletableContacto').show();
+	$(this).siblings('.editableContacto').show();
+	$(this).siblings('.editableContactoButtons').removeClass( "changedContactoButtons" );
+    });
+
+    $(".deletableContacto").click(function(){
+	contactoDelete=true;
+	$(this).siblings('.editableContacto').toggle();
+	$(this).toggleClass('deletableContactoSelected');
+	$(this).siblings('.editableContactoButtons').toggleClass( "deletedContactoButtons" );
+    });
+
+    $("#saveContacto").click(function(){
+
+	var $headers = ['id','name','movil_phone','telephone','e_mail'];
+	var $data = [];
+	var $counter = 0;
+
+	if (contactoPost) {
+
+	    var $row = [];
+
+	    $('.newContactoPost input').each(function(index, item) {
+		var $texto= $(this).val();
+		$row.push($texto);
+		//console.log($texto); 
+	    });
+console.log($row); 
+
+	    $ContcForm = new FormData();
+	    $ContcForm.append($headers[1],$row[0]);
+	    $ContcForm.append($headers[2],$row[1]);
+	    $ContcForm.append($headers[3],$row[2]);
+	    $ContcForm.append($headers[4],$row[3]);
+
+	    SaveApiContactoPost($ContcForm,"{{route('contacto.store')}}");
+
+	}
+
+	if (contactoDelete) {
+
+	var $row = [];
+
+	$('.deletedContactoButtons input[name="idContacto"]').each(function(index, item) {
+	var $texto= $(this).val();
+	$row.push($texto);
+	});
+
+	if ($row.length>0){
+
+	    $row.forEach(function($element) {
+		var $URL ="{{route('contacto.store')}}/"+$element ;
+		SaveApiContactoDelete($URL);
+
+	    })
+	}
+
+
+	}
+
+	if (contactoUpdate) {
+
+	    var $row = [];
+	    var $rows = [];
+
+	    $('.changedContactoButtons').each(function(index, item) {
+		$('input',this).each(function(){
+		    var $texto= $(this).val();
+		    $row.push($texto);
+		    //console.log($texto); 
+		});
+
+		$rows.push($row);
+		$row = [];
+	    });
+
+	    if ($rows.length>0){
+
+		$rows.forEach(function($element) {
+
+		    $ContcForm = new FormData();
+		    $ContcForm.append($headers[1],$element[1]);
+		    $ContcForm.append($headers[2],$element[2]);
+		    $ContcForm.append($headers[3],$element[3]);
+		    $ContcForm.append($headers[4],$element[4]);
+
+		    SaveApiContactoUpdate($ContcForm,$element[0]);
+
+		})
+
+	    }
+
+	}
+
+
+    });
+
+    //Contactos section fin
 
 });
 

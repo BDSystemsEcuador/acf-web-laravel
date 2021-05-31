@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contact;
 
 class ContactsController extends Controller
 {
@@ -34,7 +35,13 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	//dd($request->all());
+        $newRow= new Contact;
+        $newRow->name = $request->input('name');
+        $newRow->movil_phone = $request->input('movil_phone');
+        $newRow->telephone = $request->input('telephone');
+        $newRow->e_mail = $request->input('e_mail');
+        $newRow->save();
     }
 
     /**
@@ -66,9 +73,16 @@ class ContactsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
-        //
+        $currentRow=Contact::findOrFail($id);
+        $currentRow->name = $request->input('name');
+        $currentRow->movil_phone = $request->input('movil_phone');
+        $currentRow->telephone = $request->input('telephone');
+        $currentRow->e_mail = $request->input('e_mail');
+        $currentRow->save();
+
     }
 
     /**
@@ -79,6 +93,8 @@ class ContactsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $currentRow=Contact::findOrFail($id);
+	//dd($currentRow['image']);
+           $currentRow->delete();
     }
 }

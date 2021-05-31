@@ -5,6 +5,7 @@ use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\QuienesController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ColaboratorsController;
+use App\Http\Controllers\ContactsController;
 use Illuminate\Support\Facades\Route;
 
 //inicio
@@ -25,6 +26,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/proyectos', ProyectoController::class)->middleware('auth');
 	Route::resource('/quienes_somos', QuienesController::class)->middleware('auth');
 	Route::resource('/colaborador', ColaboratorsController::class)->middleware('auth');
+	Route::resource('/contacto', ContactsController::class)->middleware('auth');
 });
 
 

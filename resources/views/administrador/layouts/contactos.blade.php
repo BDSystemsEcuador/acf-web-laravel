@@ -1,160 +1,317 @@
-@inject('provider', 'App\Http\Controllers\ServiceQuienesController')
+
+
+@inject('provider', 'App\Http\Controllers\ServiceContactosController')
 
 <?php 
 
-$camposQ = $provider->serviceQuienes();
+$camposCon = $provider->serviceContactos();
 
 ?>
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <!--Code-->
 
-<script>
+<style type="text/css" media="screen">
 
-var formsData = [];
+.insideCuadro, .cuadro-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+ .cuadro-box {
+     flex: 3 1 calc(var(--modifier) * 999);
+     height: calc(282px + 5vw);
+     overflow: hidden;
+ }
+ .cuadro-box img {
+     max-width: 100%;
+     min-height: 100%;
+     width: auto;
+     height: auto;
+     object-fit: cover;
+     object-position: 50% 50%;
+ }
+ .insideCuadro {
+     --modifier: calc(70ch - 100%);
+     border: 2px solid #f2f2f2;
+     border-radius: 8px;
+     overflow: hidden;
+ }
+ .cuadro-content {
+     padding: 16px 32px;
+     flex: 4 1 calc(var(--modifier) * 999);
+ }
+
+ .cuadro-title {
+     margin: 0;
+     font-size: clamp(1.4em, 2.1vw, 2.1em);
+     font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+     text-transform: none;
+ }
+ .cuadro-title a {
+     text-decoration: none;
+     color: inherit;
+ }
+
+ .cuadro-save {
+     display: flex;
+     align-items: center;
+     padding: 6px 14px 6px 12px;
+     border-radius: 4px;
+     border: 2px solid currentColor;
+     color: var(--primary);
+     background: none;
+     cursor: pointer;
+     font-weight: bold;
+ }
+
+ .deletableContactoSelected {
+     color: var(--lightgrey);
+ }
+
+ .cuadro-input {
+     display: flex;
+     width: 40%;
+     align-items: center;
+     padding: 6px 14px 6px 12px;
+     border-radius: 4px;
+     border: 2px solid currentColor;
+     color: var(--primary);
+     background: none;
+     cursor: pointer;
+     font-weight: bold;
+ }
 
 
-$(document).ready(function(){
-
-/*Debug Function
-    $("#editabletag").click(function(){
-	alert('holamundo');
-    });
-*/
-
-    $("#editabletag").click(function(){
-	alert('holamundo');
-    });
-
-
-    $('#exportboton').click(function () {
+ .cuadro-input-text {
+     display: flex;
+     width: 100%;
+     align-items: center;
+     padding: 6px 14px 6px 12px;
+     border-radius: 4px;
+     border: 2px solid currentColor;
+     color: var(--primary);
+     background: none;
+     cursor: pointer;
+     font-weight: bold;
+ }
 
 
-	//var $rows = $('#quientable').find('tr:not(:hidden)').text();
+ /* Body Layout */
+ #contentCuadro {
+     box-sizing: border-box;
+ }
+ #contentCuadro {
+     --primary: #e05d26;
+     --grey: #454545;
+     --lightgrey: #666;
+     color: var(--grey);
+     line-height: 1.55;
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     font-family: "Roboto", Helvetica, Arial, sans-serif;
+ }
+ .bigCuadro {
+     width: clamp(320px, 65%, 65%);
+     padding: 24px;
+ }
+ .smallCuadro {
+     width: clamp(320px, 33%, 480px);
+     padding: 24px;
+ }
 
-
-	var $row = [];
-	var $headers = [];
-	var $data = [];
-	var $counter = 0;
-
-	$('.quienes tr').each(function(index, item) {
-	    $('td',this).each(function(){
-		var $texto= $(this).text();
-		$row.push($texto);
-		//console.log($texto); 
-		//console.log('rows'); 
-
-	    });
-	    $row.splice(3,2);
-	    $data.push($row);
-	    $row = [];
-	    //var $tes= 'hóla cómo estás';
-	    //console.log(slugify($tes));
-	});
-
-	$headers = $data.splice(0,1); 
-	$headers=[].concat.apply([], $headers);
-	$headers = arrslugify($headers);
-
-	//console.log($headers);
-	//console.log($data);
-
-
-	for(i=0 ; i<$data.length; i++){
-
-	    formsData[i] = new FormData();
-
-	    for(y=0 ; y<$headers.length; y++){
-		//console.log($data[i]);
-		formsData[i].append($headers[y],$data[i][y]);	
-	    }
-
-	    /* Debug formsData
-	    for (var value of formsData[i].values()) {
-		console.log(value);
-	    }
-	    */
-
-	}
-
-	SaveApi(formsData);
-	console.log(formsData);
-	// Output the result
-	$('#exporttext').text($data);
-    });
-});
-
-//slugify function
-
-const slugify = str => {
-  const map = {
-    '-' : ' ',
-    '-' : '_',
-    'a' : 'á|à|ã|â|ä|À|Á|Ã|Â|Ä',
-    'e' : 'é|è|ê|ë|É|È|Ê|Ë',
-    'i' : 'í|ì|î|ï|Í|Ì|Î|Ï',
-    'o' : 'ó|ò|ô|õ|ö|Ó|Ò|Ô|Õ|Ö',
-    'u' : 'ú|ù|û|ü|Ú|Ù|Û|Ü',
-    'c' : 'ç|Ç',
-    'n' : 'ñ|Ñ'
-  };
-
-  for (var pattern in map) {
-    str = str.replace(new RegExp(map[pattern], 'g'), pattern);
-  }
-
-  return str;
+ .example_b {
+     color: #fff !important;
+     text-transform: uppercase;
+     text-decoration: none;
+     background: #60a3bc;
+     padding: 14px;
+     margin: 20px;
+     display: inline-block;
+     border-radius: 50px;
+     border: none;
+     transition: all 0.4s ease 0s;
+     float:left;
+ }
+.example_b:hover {
+	background: #434343;
+	letter-spacing: 1px;
+	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+	transition: all 0.4s ease 0s;
 }
 
+ .example_b a {
+     text-decoration:none;
+ }
 
-//slug wrapper
+ .newContactoCuadro {
+     display:none;
+ }
+
+ .editableContactoButtons{
+     display:none;
+ }
 
 
-const arrslugify = lis => {
+</style>
+
+<div class="container-fluid">
+
+    <div class="row" id="contentCuadro"> 
+
+	<!-- repeated elements -->
+
+	@for ($i = 0; $i < count($camposCon); $i++)
+
+	<div class="smallCuadro">
+	    <article class="insideCuadro">
+
+		<div class="cuadro-content">
+
+		    <h1 class="cuadro-title"><a href="#">{{ $camposCon[$i]['name']}}</a></h1>
+
+		    <p class="cuadro-desc">{{$camposCon[$i]['movil_phone']}}</p>
+		    <p class="cuadro-desc">{{$camposCon[$i]['telephone']}}</p>
+		    <p class="cuadro-desc">{{$camposCon[$i]['e_mail']}}</p>
+
+		    <button class="cuadro-save editableContacto" type="button">
+			Editar
+		    </button>
+		    <button class="cuadro-save deletableContacto" type="button">
+			Eliminar
+		    </button>
+
+		    <div class="editableContactoButtons">
+
+			<input  style='display:none' name="idContacto" type="text" id="" value="{{$camposCon[$i]['id']}}" readonly/>
+
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposCon[$i]['name']}}" placeholder="Nombre"/>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposCon[$i]['movil_phone']}}" placeholder="Celular"/>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposCon[$i]['telephone']}}" placeholder="Teléfono-fijo"/>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposCon[$i]['e_mail']}}" placeholder="E-mail"/>
+
+		    </div>
+
+		    <br/>
+		    <button class="cancelEditableContacto" type="button" style='display:none'>
+			Cancelar edición
+		    </button>
+
+		</div>
+
+	    </article>
+
+	</div>
+	@endfor
+
+	<!-- fin repeated elements -->
+
+	<!-- new elements -->
+
+	<div class="smallCuadro newContactoCuadro">
+
+	    <article class="insideCuadro">
+
+		<div class="cuadro-content newContactoPost">
+
+		    <h1 class="cuadro-title"><a href="#">Nuevo contacto</a></h1>
+
+		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Nombre"/>
+		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Celular"/>
+		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Teléfono fijo"/>
+		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="E-mail"/>
+
+		    <br/>
+		    <button id="cancelNewContacto" type="button">
+			Cancelar nuevo
+		    </button>
+
+		</div>
+
+	    </article>
+
+
+	</div>
+
+	<!-- fin new elements -->
+
+	<div class="buttonsContacto">
+
+	    <div class="button_cont" id="saveContacto" align="center"><a class="example_b" href="#" onclick="return false;" >Guardar cambios</a></div>
+
+	    <div class="button_cont" id="newContacto" align="center"><a class="example_b" href="#" onclick="return false;" >Nuevo contacto</a></div>
+
+	    <div class="button_cont" align="center"><a class="example_b" href="#" onclick="location.reload()" >Cancelar</a></div>
+	</div>
+
+
+
+    </div>
+
+
+
+</div>
+
     
-  for (i=0 ; i<lis.length; i++) {
-    lis[i] = slugify(lis[i].toLowerCase()); 
-      lis[i]=lis[i].replace(/\n/g, '');
-      lis[i]=lis[i].replace(/\t/g, '');
-      lis[i]=lis[i].replace(/\s/g, '');
+<script charset="utf-8">
 
-  }
-    return lis
+//Service contacto wrapper
+
+function SaveApiContactoPost(lis,link){
+
+	console.log('enviando nuevo contacto');
+	this.sendRequestContacto(lis,link);
+
 }
 
 
-//Service wrapper
+//Service contacto wrapper update
 
-function SaveApi(lis){
+function SaveApiContactoUpdate(lis,id){
 
-	for (i=0 ; i<lis.length; i++) {
-	var photo = document.getElementById('quienesimg'+i).files[0];
-	//console.log(photo);
-	lis[i].append("photo", photo);
-	lis[i].append("_method", "PUT");
-	var id = i+1;
-	console.log(id); 
+	console.log('modificando contacto');
+	lis.append("_method", "PUT");
+	let link ="{{route('contacto.store')}}/"+id 
+	this.sendRequestContacto(lis,link);
 
-	this.sendRequest(lis[i],id);
+}
+
+
+//Service contacto wrapper delete
+
+async function SaveApiContactoDelete(link){
+
+	try {
+	    let r = await fetch(link, 
+		{method: "DELETE", 
+		    headers: {"X-CSRF-TOKEN": "{{ csrf_token() }}"}
+		    //,signal: ctrl.signal
+		}); 
+	    console.log('HTTP response code:',r.status); 
+
+	} catch (err) {
+	    if (err.response) {
+		throw("httpError"+
+		    `${err.response.statusText} - ${err.response.status}`);
+	    } else {
+		throw("httpError", "HTTP doesnt response");
+	    }
+	    throw err;
+
 	}
 
-	const ctrl = new AbortController()    // timeout
-	setTimeout(() => ctrl.abort(), 5000);
-
-
-    //return lis
 }
 
+//Service Closure Contacto
 
-//Service Closure
 
-    async function sendRequest(apiObject,id) {
+    async function sendRequestContacto(apiObject,link) {
 	    //console.log(apiObject); 
+
 	try {
-	    let r = await fetch("{{route('quienes_somos.store')}}/"+id, 
+	    let r = await fetch(link, 
 		{method: "POST", 
 		    body: apiObject, 
 		    headers: {"X-CSRF-TOKEN": "{{ csrf_token() }}"}
@@ -176,100 +333,4 @@ function SaveApi(lis){
     }
 
 </script>
-
-<!--Code fin -->
-
-  {{-- route('quienes_somos.update',$quienes_somo->"5")--}}
-  <div class="container-fluid">
-      <div class="row">
-	  <div class="col-md-12">
-
-	      <div class="panel panel-default panel-table">
-		  <div class="panel-body">
-		      <table id="quientable"class="table table-striped table-bordered table-list quienes">
-			  <thead>
-			      <tr style='font-weight:bold'>
-				  <td>
-				      Sección
-				  </td>
-				  <td id="editabletag">
-				      Título
-				  </td>
-				  <td>
-				      Contenído
-				  </td>
-				  <td>
-				      Imagen actual
-				  </td>
-				  <td>
-				      Imagen
-				  </td>
-			      </tr> 
-			  </thead>
-			  <tbody>
-			      <tr>
-				  <td align="center">
-				      <b>{{$camposQ[0]['seccion']}}</b>
-				  </td>
-				  <td align="center" contenteditable="true">
-				      {{$camposQ[0]['titulo']}}
-				  </td>
-				  <td contenteditable="true">
-				      {{$camposQ[0]['contenido']}}
-				  </td>
-				  <td >
-				      <img src="{{Storage::url($camposQ[0]['imagen'])}}" class="img-responsive" alt="..." />
-				  </td>
-				      <td >
-					  <input id="quienesimg0" class="form-control-file" type="file" />
-				      </td >
-			      </tr>
-					  <tr>
-					      <td align="center">
-						  <b>{{$camposQ[1]['seccion']}}</b>
-					      </td>
-					      <td align="center" contenteditable="true">
-						  {{$camposQ[1]['titulo']}}
-					      </td>
-					      <td contenteditable="true">
-						  {{$camposQ[1]['contenido']}}
-					      </td>
-					      <td >
-						  <img src="{{Storage::url($camposQ[0]['imagen'])}}" class="img-responsive" alt="..." />
-					      </td>
-						  <td align="center">
-						      <input id="quienesimg1" class="form-control-file" no-border" type="file" />
-						  </td>
-					  </tr>
-					  @for ($i = 2; $i < count($camposQ); $i++)
-					  <tr>
-					      <td align="center">
-						  <b>{{$camposQ[$i]['seccion']}}</b>
-					      </td contenteditable="true">
-					      <td align="center" contenteditable="true">
-						  {{$camposQ[$i]['titulo']}}
-					      </td>
-					      <td contenteditable="true">
-						  {{$camposQ[$i]['contenido']}}
-					      </td>
-					      <td >
-						  <img src="{{Storage::url($camposQ[$i]['imagen'])}}" class="img-responsive" alt="..." />
-					      </td>
-						  <td align="center">
-						      <input id="quienesimg{{$i}}" class="form-control-file" type="file" />
-						  </td>
-					  </tr>
-					  @endfor
-			  </tbody>
-		      </table>
-		  </div>
-		  <button id="exportboton" class="btn btn-primary">Guardar</button>
-			      <!-- debug section
-		  <p id="exporttext"></p>
-			 -->
-	      </div>
-	  </div>
-      </div>
-  </div>
-</div>
 

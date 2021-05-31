@@ -43,6 +43,7 @@ $camposC = $provider->serviceColaboradores();
      margin: 0;
      font-size: clamp(1.4em, 2.1vw, 2.1em);
      font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+     text-transform: none;
  }
  .cuadro-title a {
      text-decoration: none;
