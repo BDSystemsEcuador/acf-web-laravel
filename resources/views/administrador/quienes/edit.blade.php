@@ -43,6 +43,7 @@ $(document).ready(function(){
 	var $row = [];
 	var $headers = [];
 	var $data = [];
+	var $idDataQuienes = [];
 	var $counter = 0;
 
 	$('.quienes tr').each(function(index, item) {
@@ -54,9 +55,9 @@ $(document).ready(function(){
 
 	    });
 	    $row.splice(3,2);
+	    $idDataQuienes.push($row.splice(3,1));
 	    $data.push($row);
 	    $row = [];
-	    //var $tes= 'hóla cómo estás';
 	    //console.log(slugify($tes));
 	});
 
@@ -86,9 +87,11 @@ $(document).ready(function(){
 	}
 
 	SaveApi(formsData);
-	//console.log(formsData);
+	//$idDataQuienes = arrslugify($idDataQuienes);
+	//console.log($idDataQuienes);
 	// Output the result
 	$('#exporttext').text($data);
+	location.reload();
 
     });
 
@@ -144,24 +147,24 @@ $(document).ready(function(){
 
 	if (colaboradorPost) {
 
-	    var $row = [];
+	var $row = [];
 
-	    $('.newColaboradorPost input').each(function(index, item) {
-		var $texto= $(this).val();
-		$row.push($texto);
-		//console.log($texto); 
-	    });
+	$('.newColaboradorPost input').each(function(index, item) {
+	var $texto= $(this).val();
+	$row.push($texto);
+	//console.log($texto); 
+	});
 
-	    $row.splice(2,2); 
-	    console.log($row); 
-	    //$headers=[].concat.apply([], $headers);
-	    //$headers = arrslugify($headers);
+	$row.splice(2,2); 
+	console.log($row); 
+	//$headers=[].concat.apply([], $headers);
+	//$headers = arrslugify($headers);
 
-	    $ColabForm = new FormData();
-	    $ColabForm.append($headers[1],$row[0]);
-	    $ColabForm.append($headers[2],$row[1]);
+	$ColabForm = new FormData();
+	$ColabForm.append($headers[1],$row[0]);
+	$ColabForm.append($headers[2],$row[1]);
 
-	    SaveApiColaboratorPost($ColabForm,"{{route('colaborador.store')}}");
+	SaveApiColaboratorPost($ColabForm,"{{route('colaborador.store')}}");
 
 	}
 
@@ -169,19 +172,19 @@ $(document).ready(function(){
 
 	var $row = [];
 
-	$('.deletedColaboratorButtons input[name="idColaborator"]').each(function(index, item) {
-	var $texto= $(this).val();
-	$row.push($texto);
-	});
+	    $('.deletedColaboratorButtons input[name="idColaborator"]').each(function(index, item) {
+		var $texto= $(this).val();
+		$row.push($texto);
+	    });
 
-	if ($row.length>0){
+	    if ($row.length>0){
 
-	    $row.forEach(function($element) {
-		var $URL ="{{route('colaborador.store')}}/"+$element ;
-		SaveApiColaboratorDelete($URL);
+		$row.forEach(function($element) {
+		    var $URL ="{{route('colaborador.store')}}/"+$element ;
+		    SaveApiColaboratorDelete($URL);
 
-	    })
-	}
+		})
+	    }
 
 
 	}
@@ -223,6 +226,7 @@ $(document).ready(function(){
 
 	}
 
+	location.reload();
 
     });
 
@@ -481,59 +485,50 @@ function SaveApi(lis){
 			      </tr> 
 			  </thead>
 			  <tbody>
-			      <tr>
-				  <td align="center">
-				      <b>{{$camposQ[0]['seccion']}}</b>
-				  </td>
-				  <td align="center" contenteditable="true">
-				      {{$camposQ[0]['titulo']}}
-				  </td>
-				  <td contenteditable="true">
-				      {{$camposQ[0]['contenido']}}
-				  </td>
-				  <td >
-				      <img src="{{Storage::url($camposQ[0]['imagen'])}}" class="img-responsive" alt="..." />
-				  </td>
-				      <td >
-					  <input id="quienesimg0" class="form-control-file" type="file" />
-				      </td >
-			      </tr>
-					  <tr>
-					      <td align="center">
-						  <b>{{$camposQ[1]['seccion']}}</b>
-					      </td>
-					      <td align="center" contenteditable="true">
-						  {{$camposQ[1]['titulo']}}
-					      </td>
-					      <td contenteditable="true">
-						  {{$camposQ[1]['contenido']}}
-					      </td>
-					      <td >
-						  <img src="{{Storage::url($camposQ[0]['imagen'])}}" class="img-responsive" alt="..." />
-					      </td>
-						  <td align="center">
-						      <input id="quienesimg1" class="form-control-file" no-border" type="file" />
-						  </td>
-					  </tr>
-					  @for ($i = 2; $i < count($camposQ); $i++)
+			      @for ($i = 0; $i < count($camposQ); $i++)
+				      @if ($camposQ[$i]['seccion']!=="Superior_2")
 					  <tr>
 					      <td align="center">
 						  <b>{{$camposQ[$i]['seccion']}}</b>
 					      </td contenteditable="true">
 					      <td align="center" contenteditable="true">
-						  {{$camposQ[$i]['titulo']}}
+							 {{$camposQ[$i]['titulo']}}
 					      </td>
 					      <td contenteditable="true">
-						  {{$camposQ[$i]['contenido']}}
+								   {{$camposQ[$i]['contenido']}}
 					      </td>
 					      <td >
 						  <img src="{{Storage::url($camposQ[$i]['imagen'])}}" class="img-responsive" alt="..." />
 					      </td>
-						  <td align="center">
-						      <input id="quienesimg{{$i}}" class="form-control-file" type="file" />
-						  </td>
+					      <td align="center">
+						  <input id="quienesimg{{$i}}" class="form-control-file" type="file" />
+					      </td>
+					      <td style='display:none'  contenteditable="true">
+								   {{$camposQ[$i]['id']}}
+					      </td>
 					  </tr>
-					  @endfor
+				      @else
+				      <tr>
+					  <td align="center">
+					      <b>{{$camposQ[$i]['seccion']}}</b>
+					  </td contenteditable="true">
+					  <td align="center" contenteditable="true">
+					      {{$camposQ[$i]['titulo']}}
+					  </td>
+					  <td contenteditable="true">
+					      {{$camposQ[$i]['contenido']}}
+					  </td>
+					  <td >
+					  </td>
+					  <td align="center">
+					      <input id="quienesimg{{$i}}" type=file readonly />
+					  </td>
+					      <td style='display:none' contenteditable="true">
+								   {{$camposQ[$i]['id']}}
+					      </td>
+				      </tr>
+				      @endif
+			      @endfor
 			  </tbody>
 		      </table>
 		  </div>
