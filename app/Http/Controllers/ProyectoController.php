@@ -6,7 +6,8 @@ use App\Http\Requests\Projects\StoreProjectRequest;
 use App\Http\Requests\Projects\UpdateProjectRequest;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
-
+use Intervention\Image\Facades\Image;
+use Storage;
 class ProyectoController extends Controller
 {
     /**
@@ -44,7 +45,9 @@ class ProyectoController extends Controller
         $newProyecto->mini_descripcion = $request->input('mini_descripcion');
         $newProyecto->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
-            $newProyecto['imagen']=$request->file('imagen')->store('uploads/proyectos','public');
+            $newProyecto['imagen'] = $request['imagen']->store('uploads/proyectos','public');
+            $img = Image::make(public_path("storage/{$newProyecto['imagen']}"))->fit(1240,720);
+            $img->save();
         }
         $newProyecto->save();
         return redirect()-> route('proyectos.index')->with('message','Proyecto agregado con éxito');
@@ -87,7 +90,10 @@ class ProyectoController extends Controller
         $proyectoFind->mini_descripcion = $request->input('mini_descripcion');
         $proyectoFind->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
-            $proyectoFind['imagen']=$request->file('imagen')->store('uploads/proyecto','public');
+            Storage::delete("public/{$proyectoFind->imagen}");
+            $proyectoFind['imagen'] = $request['imagen']->store('uploads/proyectos','public');
+            $img = Image::make(public_path("storage/{$proyectoFind['imagen']}"))->fit(1240,720);
+            $img->save();
         }
         $proyectoFind->save();
         return redirect()->route('proyectos.index');
@@ -101,6 +107,7 @@ class ProyectoController extends Controller
      */
     public function destroy(Proyecto $proyecto)
     {
+        Storage::delete("public/{$proyecto->imagen}");
         $proyecto->delete();
         return redirect()-> route('proyectos.index')->with('message','Eliminado con éxito');
     }
