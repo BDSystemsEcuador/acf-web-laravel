@@ -22,7 +22,7 @@ foreach ($ContactosPrincipal as $Contacto) {
 
 	@foreach ($ContactosWP as $Contacto)
 
-	    <a class="wsp-num" title="Click para chatear"  href="https://api.whatsapp.com/send?phone=={{ $Contacto['movil_phone']}}&text=Me%20gustaría%20hablar%20con%20alguien" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>{{ str_replace("WP","",$Contacto['name'])}}</a>
+	    <a class="wsp-num" title="Click para chatear"  href="https://api.whatsapp.com/send?phone=={{ $Contacto['movil_phone']}}&text=Me%20gustaría%20hablar%20con%20alguien" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>{{ str_replace("WP","",$Contacto['name'])}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 
 	@endforeach
 

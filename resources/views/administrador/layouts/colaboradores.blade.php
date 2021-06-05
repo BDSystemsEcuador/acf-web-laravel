@@ -17,16 +17,17 @@ $camposC = $provider->serviceColaboradores();
 }
  .cuadro-box {
      flex: 3 1 calc(var(--modifier) * 999);
-     height: calc(282px + 5vw);
+     height: auto;
      overflow: hidden;
  }
  .cuadro-box img {
      max-width: 100%;
-     min-height: 100%;
+     max-height: 15em;
      width: auto;
      height: auto;
      object-fit: cover;
      object-position: 50% 50%;
+     margin: auto;
  }
  .insideCuadro {
      --modifier: calc(70ch - 100%);
@@ -37,11 +38,12 @@ $camposC = $provider->serviceColaboradores();
  .cuadro-content {
      padding: 16px 32px;
      flex: 4 1 calc(var(--modifier) * 999);
+     font-size: 1.2em;
  }
 
  .cuadro-title {
      margin: 0;
-     font-size: clamp(1.4em, 2.1vw, 2.1em);
+     font-size: 2.2em;
      font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
      text-transform: none;
  }
@@ -59,6 +61,11 @@ $camposC = $provider->serviceColaboradores();
      color: var(--primary);
      background: none;
      cursor: pointer;
+     //font-weight: bold;
+ }
+
+
+ .cuadro-save:hover {
      font-weight: bold;
  }
 
@@ -76,9 +83,12 @@ $camposC = $provider->serviceColaboradores();
      color: var(--primary);
      background: none;
      cursor: pointer;
-     font-weight: bold;
+     //font-weight: bold;
  }
 
+ .cuadro-input:hover {
+     font-weight: bold;
+ }
 
  .cuadro-input-text {
      display: flex;
@@ -90,7 +100,8 @@ $camposC = $provider->serviceColaboradores();
      color: var(--primary);
      background: none;
      cursor: pointer;
-     font-weight: bold;
+     //font-weight: bold;
+     padding:0;
  }
 
 
@@ -152,6 +163,18 @@ $camposC = $provider->serviceColaboradores();
      display:none;
  }
 
+.colabInputSpan {
+	background: #F3F3F3;
+	display: block;
+	padding: 3px;
+	margin: 0 -9px -9px -9px;
+	text-align: center;
+	color: #C0C0C0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin-bottom: 0.5em;
+	border-radius: 5px;
+    }
 
 </style>
 
@@ -166,15 +189,18 @@ $camposC = $provider->serviceColaboradores();
 	<div class="smallCuadro">
 	    <article class="insideCuadro">
 
-		<div class="cuadro-box">
+		<div class="cuadro-box cuadro_box_colab">
 		    <img src="{{Storage::url($camposC[$i]['image'])}}" class="img-responsive" width="1500" height="1368" href="{{$camposC[$i]['link']}}"alt="..." />
 		</div>
 
 		<div class="cuadro-content">
 
+		   <div class='cuadro_content_colab'>
 		    <h1 class="cuadro-title"><a href="#">{{ $camposC[$i]['name']}}</a></h1>
 
 		    <p class="cuadro-desc">{{$camposC[$i]['link']}}</p>
+		   </div>
+
 
 		    <button class="cuadro-save editableColaborador" type="button">
 			Editar
@@ -185,11 +211,15 @@ $camposC = $provider->serviceColaboradores();
 
 		    <div class="editableColaboradorButtons">
 
-			<input  style='display:none' name="idColaborator" type="text" id="" value="{{$camposC[$i]['id']}}" readonly/>
+			<input  style='display:none' name="idColaborator" type="text" id="" value="{{$camposC[$i]['id']}}" readonly />
 
-			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['name']}}" placeholder="Nombre"/>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['name']}}">
+			<span class='colabInputSpan' >Nombre</span>
+			</input>
 
-			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['link']}}" placeholder="Dirección web"/>
+			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['link']}}" >
+			<span class='colabInputSpan' >Dirección web</span>
+			</input>
 
 			<label class="cuadro-input" >Imagen
 			    <input type="file" accept="image/*" id="colaboradorUpdateImage:{{$camposC[$i]['id']}}" name="file" style="display:none" />
@@ -221,9 +251,13 @@ $camposC = $provider->serviceColaboradores();
 
 		    <h1 class="cuadro-title"><a href="#">Nuevo partner</a></h1>
 
-		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Nombre"/>
+		    <input class="cuadro-input-text" type="text" id="linkInput" >
+		    <span class='colabInputSpan' >Nombre</span>
+		    </input>
 
-		    <input class="cuadro-input-text" type="text" id="linkInput" placeholder="Dirección web"/>
+		    <input class="cuadro-input-text" type="text" id="linkInput">
+		    <span class='colabInputSpan' >Dirección web</span>
+		    </input>
 
 		    <label class="cuadro-input" >Imagen
 			<input type="file" accept="image/*" id="fileNewColaboradorInput" name="file" style="display:none" />
@@ -245,18 +279,12 @@ $camposC = $provider->serviceColaboradores();
 
 	<div class="buttonsColaborador">
 
-	    <div class="button_cont" id="saveColaborators" align="center"><a class="example_b" href="#" onclick="return false;" >Guardar cambios</a></div>
-
 	    <div class="button_cont" id="newColaborador" align="center"><a class="example_b" href="#" onclick="return false;" >Nuevo colaborador</a></div>
+	    <div class="button_cont stateColaborators" style='display:none;' id="saveColaborators" align="center"><a class="example_b" href="#" onclick="return false;" >Guardar cambios</a></div>
+	    <div class="button_cont stateColaborators" style='display:none;' align="center"><a class="example_b" href="#" onclick="location.reload()" >Cancelar</a></div>
 
-	    <div class="button_cont" align="center"><a class="example_b" href="#" onclick="location.reload()" >Cancelar</a></div>
 	</div>
-
-
-
     </div>
-
-
 
 </div>
 
