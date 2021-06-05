@@ -233,16 +233,14 @@ p {
     color: var(--secondary);
     margin: 0px auto;
     text-align: center;
-    font-size: 18px;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
+    font-size: 15px;
     overflow: hidden;
     max-height: 50px;
 }
 .card__txt {
     padding: 0 0px 10px 0px;
-    text-align: left;
-    margin: 0px 10px 10px 10px;
+    text-align: center;
+    margin: 3px 10px 10px 10px;
     word-wrap: break-word;
     overflow-y: hidden;
     height: 100px;
@@ -548,9 +546,9 @@ p {
     padding: 30px;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.123);
-    display:inline-block;
     margin: 20px 0px;
-        
+    width: 100%;
+
 }
 .contenido-trix>h1,strong{
     color: #fb8840;
