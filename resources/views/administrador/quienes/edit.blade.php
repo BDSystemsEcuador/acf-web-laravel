@@ -3,6 +3,7 @@
 <?php 
 
 $camposQ = $provider->serviceQuienes();
+$noImageSection= $provider::findSlug('Superior_2');
 
 ?>
 
@@ -21,6 +22,10 @@ var colaboradorUpdate = false;
 var contactoPost = false;
 var contactoDelete = false;
 var contactoUpdate = false;
+
+var colabSectionButtonsEdit = 0;
+var contactSectionButtonsEdit = 0;
+
 
 $(document).ready(function(){
 
@@ -86,13 +91,17 @@ $(document).ready(function(){
 
 	}
 
-	SaveApi(formsData);
-	//$idDataQuienes = arrslugify($idDataQuienes);
-	//console.log($idDataQuienes);
+	$idDataQuienes=[].concat.apply([], $idDataQuienes);
+	$idDataQuienes = arrslugify($idDataQuienes);
+	SaveApi(formsData,$idDataQuienes);
 	// Output the result
 	$('#exporttext').text($data);
-	location.reload();
 
+	setTimeout(function(){
+
+	    location.reload();
+
+	}, 750);
     });
 
     //Colaboradores section
@@ -102,6 +111,8 @@ $(document).ready(function(){
 	colaboradorPost = true;
 	$(".newColaboradorCuadro").show();
 	$("#newColaborador").hide();
+	colabSectionButtonsEdit++;
+	$(".stateColaborators").show();
     });
 
 
@@ -110,26 +121,35 @@ $(document).ready(function(){
 	colaboradorPost = false;
 	$(".newColaboradorCuadro").hide();
 	$("#newColaborador").show();
+	colabSectionButtonsEdit--;
+	if (colabSectionButtonsEdit ==0) $(".stateColaborators").hide();
+	// colabSectionButtonsEdit ==0 ? $(".stateColaborators").hide() : ;
     });
 
     $(".editableColaborador").click(function(){
 	//alert('holamundo');
 	colaboradorUpdate = true;
 	$(this).hide();
+	$(this).siblings('.cuadro_content_colab').hide();
 	$(this).siblings('.editableColaboradorButtons').show();
 	$(this).siblings('.cancelEditableColaborator').show();
 	$(this).siblings('.deletableColaborador').hide();
 	$(this).siblings('.editableColaboradorButtons').addClass( "changedColaboratorButtons" );
+	colabSectionButtonsEdit++;
+	$(".stateColaborators").show();
     });
 
 
     $(".cancelEditableColaborator").click(function(){
 	//alert('holamundo');
 	$(this).hide();
+	$(this).siblings('.cuadro_content_colab').show();
 	$(this).siblings('.editableColaboradorButtons').hide();
 	$(this).siblings('.deletableColaborador').show();
 	$(this).siblings('.editableColaborador').show();
 	$(this).siblings('.editableColaboradorButtons').removeClass( "changedColaboratorButtons" );
+	colabSectionButtonsEdit--;
+	if (colabSectionButtonsEdit ==0) $(".stateColaborators").hide();
     });
 
     $(".deletableColaborador").click(function(){
@@ -137,6 +157,13 @@ $(document).ready(function(){
 	$(this).siblings('.editableColaborador').toggle();
 	$(this).toggleClass('deletableColaboradorSelected');
 	$(this).siblings('.editableColaboradorButtons').toggleClass( "deletedColaboratorButtons" );
+	if ($(this).siblings('.editableColaborador').is(":visible")) {
+	colabSectionButtonsEdit--;
+	if (colabSectionButtonsEdit ==0) $(".stateColaborators").hide();
+	} else {
+	    colabSectionButtonsEdit++;
+	    $(".stateColaborators").show();
+	}
     });
 
     $("#saveColaborators").click(function(){
@@ -226,7 +253,11 @@ $(document).ready(function(){
 
 	}
 
-	location.reload();
+	setTimeout(function(){
+
+	    location.reload();
+
+	}, 750);
 
     });
 
@@ -239,6 +270,8 @@ $(document).ready(function(){
 	contactoPost = true;
 	$(".newContactoCuadro").show();
 	$("#newContacto").hide();
+	contactSectionButtonsEdit++;
+	$(".stateContacts").show();
     });
 
 
@@ -247,16 +280,23 @@ $(document).ready(function(){
 	contactoPost = false;
 	$(".newContactoCuadro").hide();
 	$("#newContacto").show();
+	contactSectionButtonsEdit--;
+	if (contactSectionButtonsEdit ==0) $(".stateContacts").hide();
     });
 
     $(".editableContacto").click(function(){
 	//alert('holamundo');
 	contactoUpdate = true;
 	$(this).hide();
+	$(this).siblings('.cuandro_content_contacto').hide();
 	$(this).siblings('.editableContactoButtons').show();
+	$(this).siblings('.tickOptionsContactsUpdate').show();
 	$(this).siblings('.cancelEditableContacto').show();
 	$(this).siblings('.deletableContacto').hide();
 	$(this).siblings('.editableContactoButtons').addClass( "changedContactoButtons" );
+	$(this).siblings('.tickOptionsContactsUpdate').addClass( "changedtickOptionsContactsUpdate" );
+	contactSectionButtonsEdit++;
+	$(".stateContacts").show();
     });
 
 
@@ -264,9 +304,14 @@ $(document).ready(function(){
 	//alert('holamundo');
 	$(this).hide();
 	$(this).siblings('.editableContactoButtons').hide();
+	$(this).siblings('.cuandro_content_contacto').show();
+	$(this).siblings('.tickOptionsContactsUpdate').hide();
 	$(this).siblings('.deletableContacto').show();
 	$(this).siblings('.editableContacto').show();
 	$(this).siblings('.editableContactoButtons').removeClass( "changedContactoButtons" );
+	$(this).siblings('.tickOptionsContactsUpdate').removeClass( "changedtickOptionsContactsUpdate" );
+	contactSectionButtonsEdit--;
+	if (contactSectionButtonsEdit ==0) $(".stateContacts").hide();
     });
 
     $(".deletableContacto").click(function(){
@@ -274,6 +319,13 @@ $(document).ready(function(){
 	$(this).siblings('.editableContacto').toggle();
 	$(this).toggleClass('deletableContactoSelected');
 	$(this).siblings('.editableContactoButtons').toggleClass( "deletedContactoButtons" );
+	if ($(this).siblings('.editableContacto').is(":visible")) {
+	contactSectionButtonsEdit--;
+	if (contactSectionButtonsEdit ==0) $(".stateContacts").hide();
+	} else {
+	    contactSectionButtonsEdit++;
+	    $(".stateContacts").show();
+	}
     });
 
     $("#saveContacto").click(function(){
@@ -285,16 +337,16 @@ $(document).ready(function(){
 	if (contactoPost) {
 
 	    var $row = [];
+	    var $isWS = $('input[name="isWS"]:checked').val();
 
 	    $('.newContactoPost input').each(function(index, item) {
 		var $texto= $(this).val();
 		$row.push($texto);
-		//console.log($texto); 
+		//console.log('WS VAL "'+$isWS+'"'); 
 	    });
-console.log($row); 
 
 	    $ContcForm = new FormData();
-	    $ContcForm.append($headers[1],$row[0]);
+	    $ContcForm.append($headers[1],$row[0]+$isWS);
 	    $ContcForm.append($headers[2],$row[1]);
 	    $ContcForm.append($headers[3],$row[2]);
 	    $ContcForm.append($headers[4],$row[3]);
@@ -328,6 +380,14 @@ console.log($row);
 
 	    var $row = [];
 	    var $rows = [];
+	    var $roWasp = [];
+
+
+	    $('.changedtickOptionsContactsUpdate').each(function(index, item) {
+		var $texto= $('input:checked',this).val();
+		console.log('WS VAL "'+$texto+'"'); 
+		$roWasp.push($texto);
+	    });
 
 	    $('.changedContactoButtons').each(function(index, item) {
 		$('input',this).each(function(){
@@ -342,10 +402,10 @@ console.log($row);
 
 	    if ($rows.length>0){
 
-		$rows.forEach(function($element) {
+		$rows.forEach(function($element,i) {
 
 		    $ContcForm = new FormData();
-		    $ContcForm.append($headers[1],$element[1]);
+		    $ContcForm.append($headers[1],$element[1]+$roWasp[i]);
 		    $ContcForm.append($headers[2],$element[2]);
 		    $ContcForm.append($headers[3],$element[3]);
 		    $ContcForm.append($headers[4],$element[4]);
@@ -358,10 +418,17 @@ console.log($row);
 
 	}
 
+	setTimeout(function(){
+
+	    location.reload();
+
+	}, 750);
 
     });
 
     //Contactos section fin
+
+
 
 });
 
@@ -406,22 +473,28 @@ const arrslugify = lis => {
 
 //Service wrapper
 
-function SaveApi(lis){
+function SaveApi(lis,ids){
+
+	var noImageIndex= ids.indexOf("{{$noImageSection['id']}}") ;
 
 	for (i=0 ; i<lis.length; i++) {
-	var photo = document.getElementById('quienesimg'+i).files[0];
-	//console.log(photo);
+
+	if (i!=noImageIndex){
+	var photo = document.getElementById('quienesimg'+ids[i]).files[0];
 	lis[i].append("photo", photo);
+	}
+
 	lis[i].append("_method", "PUT");
-	var id = i+1;
+	var id = ids[i];
 	console.log(id); 
 
 	this.sendRequest(lis[i],id);
 	}
 
-	const ctrl = new AbortController()    // timeout
-	setTimeout(() => ctrl.abort(), 5000);
 
+	// Timeout case
+	//const ctrl = new AbortController()    // timeout
+	//setTimeout(() => ctrl.abort(), 5000);
 
     //return lis
 }
@@ -429,7 +502,6 @@ function SaveApi(lis){
 //Service Closure
 
     async function sendRequest(apiObject,id) {
-	    //console.log(apiObject); 
 	try {
 	    let r = await fetch("{{route('quienes_somos.store')}}/"+id, 
 		{method: "POST", 
@@ -459,12 +531,13 @@ function SaveApi(lis){
 
   {{-- route('quienes_somos.update',$quienes_somo->"5")--}}
   <div class="container-fluid">
+
       <div class="row">
 	  <div class="col-md-12">
 
 	      <div class="panel panel-default panel-table">
 		  <div class="panel-body">
-		      <table id="quientable"class="table table-striped table-bordered table-list quienes">
+		      <table id="quientable"class="quienes quienTable">
 			  <thead>
 			      <tr style='font-weight:bold'>
 				  <td>
@@ -487,26 +560,26 @@ function SaveApi(lis){
 			  <tbody>
 			      @for ($i = 0; $i < count($camposQ); $i++)
 				      @if ($camposQ[$i]['seccion']!=="Superior_2")
-					  <tr>
+				      <tr>
+					  <td align="center">
+					      <b>{{$camposQ[$i]['seccion']}}</b>
+					  </td contenteditable="true">
+					  <td align="center" contenteditable="true">
+					      {{$camposQ[$i]['titulo']}}
+					  </td>
+					  <td contenteditable="true">
+					      {{$camposQ[$i]['contenido']}}
+					  </td>
+					  <td >
+					      <img src="{{Storage::url($camposQ[$i]['imagen'])}}" class="img-responsive" alt="..." />
+					  </td>
 					      <td align="center">
-						  <b>{{$camposQ[$i]['seccion']}}</b>
-					      </td contenteditable="true">
-					      <td align="center" contenteditable="true">
-							 {{$camposQ[$i]['titulo']}}
-					      </td>
-					      <td contenteditable="true">
-								   {{$camposQ[$i]['contenido']}}
-					      </td>
-					      <td >
-						  <img src="{{Storage::url($camposQ[$i]['imagen'])}}" class="img-responsive" alt="..." />
-					      </td>
-					      <td align="center">
-						  <input id="quienesimg{{$i}}" class="form-control-file" type="file" />
+						  <input id="quienesimg{{$camposQ[$i]['id']}}" class="form-control-file" type="file" />
 					      </td>
 					      <td style='display:none'  contenteditable="true">
-								   {{$camposQ[$i]['id']}}
+						  {{$camposQ[$i]['id']}}
 					      </td>
-					  </tr>
+				      </tr>
 				      @else
 				      <tr>
 					  <td align="center">
@@ -520,15 +593,14 @@ function SaveApi(lis){
 					  </td>
 					  <td >
 					  </td>
-					  <td align="center">
-					      <input id="quienesimg{{$i}}" type=file readonly />
-					  </td>
+					      <td align="center" readonly>
+					      </td>
 					      <td style='display:none' contenteditable="true">
-								   {{$camposQ[$i]['id']}}
+						  {{$camposQ[$i]['id']}}
 					      </td>
 				      </tr>
 				      @endif
-			      @endfor
+				      @endfor
 			  </tbody>
 		      </table>
 		  </div>
@@ -541,4 +613,98 @@ function SaveApi(lis){
       </div>
   </div>
 </div>
+
+
+
+
+<style type="text/css" media="screen">
+
+table.quienTable {
+	background: #f5f5f5;
+	border-collapse: separate;
+	box-shadow: inset 0 1px 0 #fff;
+	font-size: 1.2em;
+	line-height: 24px;
+	margin: 30px auto;
+	text-align: left;
+	width: 800px;
+	overflow: auto;
+}	
+
+.quienTable th {
+	border-left: 1px solid #555;
+	border-right: 1px solid #777;
+	border-top: 1px solid #555;
+	border-bottom: 1px solid #333;
+	box-shadow: inset 0 1px 0 #999;
+	color: #fff;
+  font-weight: bold;
+	padding: 10px 15px;
+	position: relative;
+	text-shadow: 0 1px 0 #000;	
+}
+
+.quienTable th:after {
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08));
+	content: '';
+	display: block;
+	height: 25%;
+	left: 0;
+	margin: 1px 0 0 0;
+	position: absolute;
+	top: 25%;
+	width: 100%;
+}
+
+ .quienTable th:first-child {
+	border-left: 1px solid #777;	
+	box-shadow: inset 1px 1px 0 #999;
+}
+
+ .quienTable th:last-child {
+	box-shadow: inset -1px 1px 0 #999;
+}
+
+ .quienTable td {
+	border-right: 1px solid #fff;
+	border-left: 1px solid #e8e8e8;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 10px 15px;
+	position: relative;
+	transition: all 300ms;
+}
+
+ .quienTable td:first-child {
+	box-shadow: inset 1px 0 0 #fff;
+}	
+
+ .quienTable td:last-child {
+	border-right: 1px solid #e8e8e8;
+	box-shadow: inset -1px 0 0 #fff;
+}	
+
+.quienTable tr:last-of-type td {
+	box-shadow: inset 0 -1px 0 #fff; 
+}
+
+.quienTable tr:last-of-type td:first-child {
+	box-shadow: inset 1px -1px 0 #fff;
+}	
+
+.quienTable tr:last-of-type td:last-child {
+	box-shadow: inset -1px -1px 0 #fff;
+}	
+
+.quienTable tbody:hover td {
+	color: transparent;
+	text-shadow: 0 0 3px #aaa;
+}
+
+.quienTable tbody:hover tr:hover td {
+	color: #444;
+	text-shadow: 0 1px 0 #fff;
+}
+
+</style>
 
