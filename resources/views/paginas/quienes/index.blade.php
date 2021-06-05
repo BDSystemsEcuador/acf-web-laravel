@@ -15,7 +15,8 @@ $Intermedia_3=$provider::findSlug('Intermedia_3');
 @section('title','Alas de Colibrí')
 @section('body')
 <div class="container">
-    <div class="quienes">
+	<div class="quienes">
+		<br>
       <h1 class="copy-title">{{$Superior_1['titulo']}}</h1>
       <p>
 	{{$Superior_1['contenido']}}

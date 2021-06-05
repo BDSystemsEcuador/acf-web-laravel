@@ -23,7 +23,7 @@
           <li class="menu__item">
             <a href="/quienes_somos" class="menu__link">Quiénes Somos</a>
           </li>
-          <li class="menu__item container-submenu">
+          {{-- <li class="menu__item container-submenu">
             <a href="#" class="menu__link submenu-btn"
               >Comunicación <i class="fas fa-chevron-down"></i
             ></a>
@@ -38,7 +38,7 @@
                 <a href="" class="menu__link">Material educomunicacional</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
           <li class="menu__item container-submenu">
             <a href="#" class="menu__link submenu-btn"
               >Únete y participa <i class="fas fa-chevron-down"></i
@@ -52,9 +52,9 @@
               </li>
             </ul>
           </li>
-          <li class="menu__item">
+          {{-- <li class="menu__item">
             <a href="#" class="menu__link">Rendición de cuentas</a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
     </div>
