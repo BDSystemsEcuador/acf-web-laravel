@@ -1,3 +1,5 @@
+@inject('menu','App\Http\Controllers\InicioController')
+
 <div class="menu-contenedor ">
     <div id="menu-box" class="menu-contenedor container-nav">
       <div class="menu-bar-container">
@@ -20,9 +22,13 @@
           <li class="menu__item">
             <a href="/" class="menu__link">Inicio</a>
           </li>
-          <li class="menu__item">
+          {{-- <li class="menu__item">
             <a href="/quienes_somos" class="menu__link">Quiénes Somos</a>
-          </li>
+          </li> --}}
+          @foreach($menu->links() as $pagina)
+          <li><a href="{{route('paginas.show',$pagina->id)}}" class="menu__link">{{ $pagina->titulo }}</a></li>
+          @endforeach
+
           {{-- <li class="menu__item container-submenu">
             <a href="#" class="menu__link submenu-btn"
               >Comunicación <i class="fas fa-chevron-down"></i
@@ -52,9 +58,6 @@
               </li>
             </ul>
           </li>
-          {{-- <li class="menu__item">
-            <a href="#" class="menu__link">Rendición de cuentas</a>
-          </li> --}}
         </ul>
       </nav>
     </div>

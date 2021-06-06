@@ -761,4 +761,9 @@ p {
         height: 500px;
         overflow-y: scroll;
     }
+    .imagenes-box{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-gap: 3px;
+    }
 }
