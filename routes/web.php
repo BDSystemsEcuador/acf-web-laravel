@@ -18,7 +18,7 @@ Route::get('/quienes_somos', function (){
         })->name('quienes.inicio');
 
 Route::get('/proyecto/{proyecto}', [ProyectoController::class,'show'])->name('proyecto.show');
-Route::get('/paginas/{pagina}', [PaginaController::class,'show'])->name('paginas.show');
+Route::get('/pagina/{pagina}', [PaginaController::class,'show'])->name('pagina.show');
 
 Auth::routes();
 //administrador

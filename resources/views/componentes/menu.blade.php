@@ -26,7 +26,7 @@
             <a href="/quienes_somos" class="menu__link">Quiénes Somos</a>
           </li> --}}
           @foreach($menu->links() as $pagina)
-          <li><a href="{{route('paginas.show',$pagina->id)}}" class="menu__link">{{ $pagina->titulo }}</a></li>
+          <li><a href="{{route('pagina.show',$pagina->id)}}" class="menu__link">{{ $pagina->titulo }}</a></li>
           @endforeach
 
           {{-- <li class="menu__item container-submenu">
