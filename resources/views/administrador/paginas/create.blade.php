@@ -12,8 +12,8 @@
     <div class="mb-3">
         <label class="form-label" for="estado">Estado:</label>
         <select name="estado" id="" class="form-control">
-            <option value="true" class="form-control">Activa</option>
-            <option value="false" class="form-control">Inactiva</option>
+            <option value="1" class="form-control">Activa</option>
+            <option value="0" class="form-control">Inactiva</option>
         </select>
     </div>
 
