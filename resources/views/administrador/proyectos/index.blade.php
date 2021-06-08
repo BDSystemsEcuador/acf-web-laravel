@@ -4,6 +4,7 @@
   <h5 class="text-danger m-3">Proyectos</h5>
   <a href="{{route('proyectos.create')}}" class="btn btn-danger text-light">Nuevo</a>
 </div>
+
 <div class="row" >
 
 @foreach ($proyectos as $proyecto)

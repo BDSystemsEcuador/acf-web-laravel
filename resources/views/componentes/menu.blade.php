@@ -20,9 +20,38 @@
           <li class="menu__item">
             <a href="/" class="menu__link">Inicio</a>
           </li>
-          <li class="menu__item">
+          {{-- <li class="menu__item">
             <a href="/quienes_somos" class="menu__link">Quiénes Somos</a>
-          </li>
+          </li> --}}
+          @inject('categories', 'App\Http\Controllers\CategoryController')
+          @inject('pages', 'App\Http\Controllers\CategoryController')
+
+          @foreach ($pages->pages() as $page)
+            @if ($page->category_id == null)
+            <li class="menu__item">
+              <a href="{{route('paginas.show',$page->id)}}" class="menu__link">{{$page->title}}</a>
+            </li>
+            @endif
+          @endforeach
+          {{-- menu dinamico --}}
+          @foreach ($categories->categories() as $category)
+          @if (count($category->pages )>0)
+          <li class="menu__item container-submenu">
+            <a href="#" class="menu__link submenu-btn"
+              >{{$category->title}}<i class="fas fa-chevron-down"></i
+            ></a>
+            <ul class="submenu">
+              @foreach ($category->pages as $page)
+              <li class="menu__item">
+                <a href="{{route('paginas.show',$page->id)}}" class="menu__link">{{$page->title}}</a>
+              </li>
+              @endforeach
+
+            </ul>
+          </li>      
+          @endif
+
+          @endforeach
           {{-- <li class="menu__item container-submenu">
             <a href="#" class="menu__link submenu-btn"
               >Comunicación <i class="fas fa-chevron-down"></i
@@ -39,7 +68,7 @@
               </li>
             </ul>
           </li> --}}
-          <li class="menu__item container-submenu">
+          {{-- <li class="menu__item container-submenu">
             <a href="#" class="menu__link submenu-btn"
               >Únete y participa <i class="fas fa-chevron-down"></i
             ></a>
@@ -51,7 +80,7 @@
                 <a href="" class="menu__link">Voluntariado</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
           {{-- <li class="menu__item">
             <a href="#" class="menu__link">Rendición de cuentas</a>
           </li> --}}

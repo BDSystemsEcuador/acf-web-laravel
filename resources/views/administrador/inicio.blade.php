@@ -15,6 +15,9 @@
           <div class="col-md-2">
             <a href="{{route('proyectos.index')}}" class="btn btn-outline-primary d-block py-3">Proyectos</a>
           </div>
+          <div class="col-md-2">
+            <a href="{{route('paginas.index')}}" class="btn btn-outline-primary d-block py-3">Páginas</a>
+          </div>
         </div>
       </div>
     </div>
