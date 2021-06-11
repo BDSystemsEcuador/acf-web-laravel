@@ -84,6 +84,9 @@
           {{-- <li class="menu__item">
             <a href="#" class="menu__link">Rendición de cuentas</a>
           </li> --}}
+          <li class="menu__item">
+            <a href="/admin" class="menu__link">Acceder</a>
+          </li>
         </ul>
       </nav>
     </div>

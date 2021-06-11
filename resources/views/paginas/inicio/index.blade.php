@@ -102,7 +102,9 @@
 
         @foreach ($proyectos as $proyecto)
         <div class="card">
-          <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="card__img" />
+          <a href="{{asset('storage').'/'.$proyecto->imagen}}" data-lightbox="roadtrip" class="url_img">
+            <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="card__img" />
+        </a>
             <h2 class="card__title">{{$proyecto->titulo}}</h2>
             <p class="card__txt">
                 {{$proyecto->mini_descripcion}}
