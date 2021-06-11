@@ -1,31 +1,42 @@
 @extends('layouts.main')
-@section('title','Alas de Colibrí')
 @section('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css" integrity="sha512-CWdvnJD7uGtuypLLe5rLU3eUAkbzBR3Bm1SFPEaRfvXXI2v2H5Y0057EMTzNuGGRIznt8+128QIDQ8RqmHbAdg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-    .page{
-        padding: 30px 0;
-}
+    .section__imgs{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .img__section{
+        width: 23%;
+        border-radius: 10px;
+        margin: 40px 0;
+    }
+    .contenido-trix{
+        margin: 20px auto;
+        text-align: justify;
+    }
 </style>
 @endsection
+@section('title','Alas de Colibrí')
 @section('body')
-<div class="container page">
-<div class="header">
-    <h1 class="copy-title">{{$page->title}}</h1>
-    <p class="copy-subtitle">{{$page->description}}</p>
-</div>
-@foreach ($page->sections as $section)
-<section class="section">
-    <h2 class="copy-title">{{$section->title}}</h2>
-    <p>{!!$section->content!!}</p>
-    <div class="section__imgs">
-        @foreach ($section->sectionImages as $image)
-        
-        <img src="{{asset('storage').'/'.$image->image}}" alt="" class="img__show-project"/>
-        <span>{{$image->title}}</span>
+<div class="container">
+    <div class="contenido-trix">
+      @foreach ($page->sections as $section)
+        <h2 class="copy-title">{{$section->title}}</h2>
+        {!!$section->content!!}
+        <div class="section__imgs">
+            @foreach ($section->sectionImages as $image)
+            <img src="{{asset('storage').'/'.$image->image}}" alt="" class="img__section"/>
+            @endforeach
+        </div>
         @endforeach
-    </div>
-</section>
-@endforeach
+      </div>
 </div>
-@endsection
 
+
+@endsection
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js" integrity="sha512-/1nVu72YEESEbcmhE/EvjH/RxTg62EKvYWLG3NdeZibTCuEtW5M4z3aypcvsoZw03FAopi94y04GhuqRU9p+CQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@endsection

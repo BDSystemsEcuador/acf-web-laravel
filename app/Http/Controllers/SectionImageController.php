@@ -40,7 +40,9 @@ class SectionImageController extends Controller
         $image->title = $request->input('title');
         if($request->hasFile('image')){
             $image['image'] = $request['image']->store('uploads/sectionImages','public');
-            $img = Image::make(public_path("storage/{$image['image']}"))->fit(1240,720);
+            $img = Image::make(public_path("storage/{$image['image']}"))->resize(720, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
             $img->save();
         }
         $image->section_id = $section_id;
