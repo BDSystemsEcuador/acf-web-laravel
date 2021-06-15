@@ -17,7 +17,7 @@ class CreateSectionImagesTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('image');
-            $table->foreignId('section_id')->references('id')->on('sections');
+            $table->foreignId('section_id')->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

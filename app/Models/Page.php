@@ -11,7 +11,7 @@ class Page extends Model
     protected $fillable = ['id','title','description','category_id'];
     public function category () 
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'id');
     }
     public function sections () 
     {

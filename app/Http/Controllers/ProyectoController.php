@@ -46,7 +46,7 @@ class ProyectoController extends Controller
         $newProyecto->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
             $newProyecto['imagen'] = $request['imagen']->store('uploads/proyectos','public');
-            $img = Image::make(public_path("storage/{$newProyecto['imagen']}"))->fit(1240,720);
+            $img = Image::make("storage/{$newProyecto['imagen']}")->fit(1240,720);
             $img->save();
         }
         $newProyecto->save();
@@ -92,7 +92,7 @@ class ProyectoController extends Controller
         if($request->hasFile('imagen')){
             Storage::delete("public/{$proyectoFind->imagen}");
             $proyectoFind['imagen'] = $request['imagen']->store('uploads/proyectos','public');
-            $img = Image::make(public_path("storage/{$proyectoFind['imagen']}"))->fit(1240,720);
+            $img = Image::make("storage/{$proyectoFind['imagen']}")->fit(1240,720);
             $img->save();
         }
         $proyectoFind->save();

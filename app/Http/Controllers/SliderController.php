@@ -30,7 +30,7 @@ class SliderController extends Controller
         $newSlider->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
             $newSlider['imagen'] = $request['imagen']->store('uploads/slider','public');
-            $img = Image::make(public_path("storage/{$newSlider['imagen']}"))->fit(1240,720);
+            $img = Image::make("storage/{$newSlider['imagen']}")->fit(1240,720);
             $img->save();
         }
         $newSlider->save();
@@ -50,7 +50,7 @@ class SliderController extends Controller
         if($request->hasFile('imagen')){
             Storage::delete("public/{$slider->imagen}");
             $sliderFind['imagen'] = $request['imagen']->store('uploads/slider','public');
-            $img = Image::make(public_path("storage/{$sliderFind['imagen']}"))->fit(1240,720);
+            $img = Image::make("storage/{$sliderFind['imagen']}")->fit(1240,720);
             $img->save();
         }
         $sliderFind->save();

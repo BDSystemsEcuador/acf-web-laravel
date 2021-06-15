@@ -16,7 +16,7 @@ class PageController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $pages = Page::all();
+        $pages = Page::with('category')->orderBy('title', 'DESC')->get();
         return view('menu.pages.index',compact('categories','pages'));
     }
 
@@ -40,7 +40,8 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $page = Page::create($request->all());
-        return redirect()->route('secciones.show',$page);
+        return redirect()->route('seccion.create',$page);
+        // return redirect()->route('paginas.index');
     }
 
     /**
@@ -86,8 +87,10 @@ class PageController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function destroy($page)
     {
-        //
+        $page = Page::findOrFail($page);
+        $page->delete();
+        return redirect()->route('paginas.index');
     }
 }

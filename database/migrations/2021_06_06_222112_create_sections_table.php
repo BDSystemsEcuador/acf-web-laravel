@@ -17,7 +17,7 @@ class CreateSectionsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('content');
-            $table->foreignId('page_id')->references('id')->on('pages');
+            $table->foreignId('page_id')->references('id')->on('pages')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

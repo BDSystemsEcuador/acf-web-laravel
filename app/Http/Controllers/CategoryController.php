@@ -58,6 +58,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'title' => 'required|unique:categories|max:255',
+        ]);
         $category = new Category();
         $category->title = $request['title'];
         $category->save();
@@ -104,8 +107,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy( $category)
     {
-        //
+        $category = Category::findOrFail($category);
+        $category->delete();
+        return redirect()->route('paginas.index');
     }
 }
