@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Page;
 use App\Models\Section;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class SectionController extends Controller
      */
     public function create($page)
     {
+        $page = Page::with('sections')->find($page);
         return view('menu.sections.create',compact('page'));
     }
 
@@ -42,7 +44,8 @@ class SectionController extends Controller
         $section->page_id = $page;
         $section->save();
         $page = Page::findOrFail($page);
-        return view('menu.sections.show',compact('page'));
+        $categories = Category::all();
+        return view('menu.sections.show',compact('page','categories'));
 
     }
 
@@ -54,8 +57,9 @@ class SectionController extends Controller
      */
     public function show($page)
     {
-        $page = Page::findOrFail($page);
-        return view('menu.sections.show',compact('page'));
+        $page = Page::with('sections')->findOrFail($page);
+        $categories = Category::all();
+        return view('menu.sections.show',compact('page','categories'));
     }
 
     /**
@@ -87,8 +91,11 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy($section)
     {
-        //
+        $section = Section::with('page')->findOrFail($section);
+        $page = $section->page;
+        $section->delete();
+        return redirect()->route('secciones.show',$page);
     }
 }

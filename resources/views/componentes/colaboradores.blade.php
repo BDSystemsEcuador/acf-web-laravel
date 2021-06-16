@@ -17,8 +17,8 @@ $ColabVars = $provider->serviceColaboradores();
 	@for ($i = 0; $i < count($ColabVars); $i++)
 
     <div class="colaboradores-item">
-	<a target="_blank" href="http://{{$ColabVars[$i]['link']}}">
-	    <img class="colaboradores__img" src="{{Storage::url($ColabVars[$i]['image'])}}" target="_blank" alt="" />
+	<a target="_blank" href="{{$ColabVars[$i]['link']}}">
+	    <img class="colaboradores__img" src="{{Storage::url($ColabVars[$i]['image'])}}" target="_blank" title="Visitar sitio web de {{$ColabVars[$i]['name']}}" />
 	</a>
     </div>
 

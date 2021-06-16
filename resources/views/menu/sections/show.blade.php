@@ -35,7 +35,7 @@
 @endsection
 @section('admin')
 <div class="d-flex justify-content-between align-items-center">  
-  <h5 class="text-danger m-3">Secciones de la página {{$page->title}}</h5>
+  <h5 class="text-danger m-3">Página {{$page->title}}</h5>
   <div class="">
       <a href="{{route('paginas.index')}}" class="">Ir a páginas</a>
     </div>
@@ -44,6 +44,33 @@
 
 <div class="row" >
 <div class="col-12">
+
+    <form action="{{route('paginas.update',$page->id)}}" method="POST" class="form">
+        @csrf
+        @method('PUT')
+        <div class="form-group mb-3">
+          <label  class="form-label" for="title">Título</label>
+          <input  class="form-control" type="text" name="title" value="{{$page->title}}">
+        </div>
+        <div class="form-group mb-3">
+          <label  class="form-label" for="description">Descripción:</label>
+          <input  class="form-control" type="text" name="description" value="{{$page->description}}">
+        </div>
+        <div class="form-group mb-3">
+          <label  class="form-label" for="category_id">Categoría:</label>
+          <select name="category_id" id="" class="form-select" >
+              
+            <option class="form-control" value="" >Menú principal</option>
+            @foreach ($categories as $category)
+                <option class="form-control" value="{{$category->id}}" {{$category->id == $page->category_id? "selected": ""}}>{{$category->title}}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <button class="btn btn-primary"  type="submit">Editar y Guardar</button>
+        </div>
+      </form>
+
     <table class="table">
         <thead>
             <tr>
@@ -58,11 +85,11 @@
         <tbody>
             @foreach ($page->sections as $section)
             <tr>
-                <td>{{$section->title}}</td>
+                <td><a href="{{route('paginas.show',$page->id)}}" target="_blank" title="Ver página">{{$section->title}}</a></td>
                 <td class="d-flex justify-content-end align-items-center">
                     <a href="{{route('imagenes.show',$section->id)}}" class="icon icon--camera"><i class="fas fa-camera"></i></a>
                     <a href="{{route('secciones.show',$page->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline-block" action="{{route('paginas.destroy',$page->id)}}" method="POST">
+                    <form class="d-inline-block" action="{{route('secciones.destroy',$section->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="icon icon--delete"><i class="fas fa-trash-alt"></i></button>

@@ -116,26 +116,24 @@
             </th>
             
             <td>
-                <table class="table table-borderless">
-                    @foreach ($pages as $page)
-                    @if ($page->category_id === null)
-                    <tr>
-                            <td>
-                                <span>{{$page->title}}</span>
-                            </td>
-                        <td class="d-flex justify-content-end align-items-center">
-                            <a href="{{route('secciones.show',$page->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
-                            <form class="d-inline-block" action="{{route('paginas.destroy',$page->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="icon icon--delete"><i class="fas fa-trash-alt"></i></button>
-                                </form>
-                        </td>
-                    </tr>
-                    @endif
-                    @endforeach
-                        
-                </table>
+              @foreach ($pages as $page)
+              @if ($page->category_id === null)
+              <div class=" d-flex justify-content-between align-items-center mb-4 ">
+                <div class=""> 
+                  <a class="d-block fw-bold h4" href="{{route('paginas.show',$page->id)}}" target="_blank" title="Ver página">{{$page->title}}</a>
+                  <span><span class="fw-bold">Descripción:</span> {{$page->description}}</span>
+                </div>
+                <div>
+                  <a href="{{route('secciones.show',$page->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
+                  <form class="d-inline-block" action="{{route('paginas.destroy',$page->id)}}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="icon icon--delete"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </div>
+            </div>
+            @endif
+            @endforeach
             </td>
         </tr>
         @foreach ($categories as $category)
@@ -145,7 +143,8 @@
                        {{$category->title}}
                     </div>  
                     <div>
-                        <a href="" class="icon icon--edit"><i class="fas fa-edit"></i></a>
+                  
+                      <a class="icon icon--edit" href="{{route('categorias.edit',$category->id)}}"><i class="fas fa-edit"></i></a>
                         <form class="d-inline-block" action="{{route('categorias.destroy',$category->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -155,23 +154,23 @@
                 </th>
                 
                 <td>
-                    <table class="table table-borderless">
-                        @foreach ($category->pages as $page)
-                        <tr>
-                            <td>
-                                <span class="d-block" href="">{{$page->title}}</span>
-                            </td>
-                            <td class="d-flex justify-content-end align-items-center">
+                  @foreach ($category->pages as $page)
+                        <div class=" d-flex justify-content-between align-items-center mb-4 ">
+                            <div class=""> 
+                                <a class="fw-bold h4" href="{{route('paginas.show',$page->id)}}" target="_blank" title="Ver página">{{$page->title}}</a>
+                                <br>
+                                <span><span class="fw-bold">Descripción:</span> {{$page->description}}</span>
+                            </div>
+                            <div>
                                 <a href="{{route('secciones.show',$page->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
                                 <form class="d-inline-block" action="{{route('paginas.destroy',$page->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="icon icon--delete"><i class="fas fa-trash-alt"></i></button>
                                 </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
+                            </div>
+                        </div>
+                  @endforeach
                 </td>
             </tr>
         @endforeach

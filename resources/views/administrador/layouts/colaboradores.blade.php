@@ -175,11 +175,74 @@ $camposC = $provider->serviceColaboradores();
 	margin-bottom: 0.5em;
 	border-radius: 5px;
     }
-
+.colaborador__img{
+	height: 50px;
+	width: auto;
+	object-fit: contain;
+}
+.icon{
+        border: 1px solid rgba(0, 0, 0, 0.425);
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .fas{
+        color: white;
+    }
+    .icon--edit{
+        background: rgb(0, 101, 233) ;
+    }
+    .icon--edit:hover{
+        background: rgb(0, 81, 185) ;
+    }
+    .icon--delete{
+        background:rgb(218, 52, 1) ;
+    }
+    .icon--delete:hover{
+        background:rgb(165, 39, 1) ;
+    }
 </style>
 
 <div class="container-fluid">
+<table class="table">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Web</th>
+			<th>Logo</th>
+			<th></th>
+		</tr>
+	</thead>
 
+	<tbody>
+		@for ($i = 0; $i < count($camposC); $i++)
+		<tr>
+			<th>
+				{{ $camposC[$i]['name']}}
+			</th>
+			<td>
+				<a href="{{$camposC[$i]['link']}}">{{$camposC[$i]['link']}}</a>
+			</td>
+			<td>
+				<img src="{{Storage::url($camposC[$i]['image'])}}" class="colaborador__img" width="1500" height="1368" href="{{$camposC[$i]['link']}}"alt="..." />
+			</td>
+			<td>
+				<a href="" class="icon icon--edit"><i class="fas fa-edit"></i></a>
+				<a href="" class="icon icon--delete"><i class="fas fa-trash-alt"></i></a>
+				<button class="editableColaborador" type="button">
+					Editar
+					</button>
+					<button class="deletableColaborador" type="button">
+					Eliminar
+				</button>
+			</td>
+		</tr>
+		@endfor
+	</tbody>
+</table>
     <div class="row" id="contentCuadro"> 
 
 	<!-- repeated elements -->

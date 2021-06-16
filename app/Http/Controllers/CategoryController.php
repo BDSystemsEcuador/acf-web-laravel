@@ -84,9 +84,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
-        //
+        $category = Category::findOrFail($category);
+        return view('menu.categories.edit',compact('category'));
     }
 
     /**
@@ -96,9 +97,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category)
     {
-        //
+        $category = Category::findOrFail($category);
+        $category->title = $request->input('title');
+        $category->save();
+        return redirect()->route('paginas.index');
     }
 
     /**

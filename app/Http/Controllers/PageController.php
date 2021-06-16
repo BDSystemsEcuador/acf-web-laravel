@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +44,7 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $page = Page::create($request->all());
-        return redirect()->route('seccion.create',$page);
+        return redirect()->route('secciones.show',$page);
         // return redirect()->route('paginas.index');
     }
 
@@ -78,7 +82,12 @@ class PageController extends Controller
      */
     public function update(Request $request, $page)
     {
-        return $page;
+        $page = Page::findOrFail($page);
+        $page->title = $request->input('title');
+        $page->description = $request->input('description');
+        $page->category_id = $request->input('category_id');
+        $page->save();
+        return redirect()->route('secciones.show',$page->id);
     }
 
     /**

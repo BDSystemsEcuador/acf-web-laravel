@@ -15,7 +15,8 @@ class ColaboratorsController extends Controller
      */
     public function index()
     {
-        //
+        $colaborators = Colaborator::all();
+        return view('administrador.colaboradores.index',compact('colaborators'));
     }
 
     /**
@@ -36,7 +37,7 @@ class ColaboratorsController extends Controller
      */
     public function store(Request $request)
     {
-	//dd($request->all());
+	
         $newRow= new Colaborator;
         $newRow->name = $request->input('name');
         $newRow->link = $request->input('link');
@@ -104,5 +105,6 @@ class ColaboratorsController extends Controller
 	//dd($currentRow['image']);
 	   Storage::disk('public')->delete($currentRow['image']);
            $currentRow->delete();
+           return redirect()->route('colaborador.index');
     }
 }
