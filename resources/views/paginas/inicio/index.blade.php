@@ -79,19 +79,16 @@
       </div>
     </section>
     <!-- Donaciones -->
-    <section class="donaciones">
-      <a class="donaciones-box donaciones__btn btn-transparent" href="#">
+    {{-- <section class="donaciones">
+      <a class="donaciones-box donaciones__btn btn-transparent" href="https://www.paypal.me/Danipmpm" target="_blank">
         <h2 class="donaciones__title">Únete y Participa</h2>
         <i class="fab fa-cc-paypal donaciones__icon"></i>
       </a>
-      <!--     <div id="smart-button-container">
-        <div style="text-align: center;">
-          <div id="paypal-button-container"></div>
-        </div>
-      </div> -->
-    </section>
+    </section> --}}
+
+
         <!-- proyecto -->
-@if(count($proyectos)>0)
+
 <section class="container proyectos">
     <h2 class="copy-title">Proyectos</h2>
     <p class="copy-subtitle">
@@ -99,24 +96,23 @@
       deleniti.
     </p>
     <div class="cards">
-
-        @foreach ($proyectos as $proyecto)
-        <div class="card">
-          <a href="{{asset('storage').'/'.$proyecto->imagen}}" data-lightbox="roadtrip" class="url_img">
-            <img src="{{asset('storage').'/'.$proyecto->imagen}}" alt="" class="card__img" />
+      @foreach ($proyectos as $proyecto)
+      <div class="card">
+        <a href="{{asset('storage').'/'.$proyecto->image}}" data-lightbox="roadtrip" class="url_img">
+          <img src="{{asset('storage').'/'.$proyecto->image}}" alt="" class="card__img" />
         </a>
-            <h2 class="card__title">{{$proyecto->titulo}}</h2>
-            <p class="card__txt">
-                {{$proyecto->mini_descripcion}}
-            </p>
-            <a href="{{route('proyecto.show',$proyecto->id)}}" class="btn-morado card--btn">Leer más <i class="fas fa-chevron-right"></i></a>
-        </div>
-        @endforeach
-
+           
+        <h2 class="card__title">{{$proyecto->title}}</h2>
+        <p class="card__txt">
+          {{$proyecto->description}}
+        </p>
+        <a href="{{route('paginas.show',$proyecto->id)}}" class="btn-morado card--btn">Leer más <i class="fas fa-chevron-right"></i></a>
+      </div>
+       
+      @endforeach
      </div>
      {{$proyectos->links()}}
   </section>
-@endif
 
 </div>
 

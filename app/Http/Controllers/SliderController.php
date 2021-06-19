@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Intervention\Image\Facades\Image;
 use Storage;
+
 use File;
 class SliderController extends Controller
 {
@@ -30,7 +31,7 @@ class SliderController extends Controller
         $newSlider->descripcion = $request->input('descripcion');
         if($request->hasFile('imagen')){
             $newSlider['imagen'] = $request['imagen']->store('uploads/slider','public');
-            $img = Image::make("storage/{$newSlider['imagen']}")->fit(1240,720);
+            $img = Image::make("storage/{$newSlider['imagen']}")->fit(1250,850 );
             $img->save();
         }
         $newSlider->save();
@@ -50,7 +51,7 @@ class SliderController extends Controller
         if($request->hasFile('imagen')){
             Storage::delete("public/{$slider->imagen}");
             $sliderFind['imagen'] = $request['imagen']->store('uploads/slider','public');
-            $img = Image::make("storage/{$sliderFind['imagen']}")->fit(1240,720);
+            $img = Image::make("storage/{$sliderFind['imagen']}")->fit(1250,850);
             $img->save();
         }
         $sliderFind->save();

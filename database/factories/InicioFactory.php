@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Inicio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -12,7 +13,7 @@ class InicioFactory extends Factory
      *
      * @var string
      */
-    protected $model = Inicio::class;
+    protected $model = Category::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +23,8 @@ class InicioFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id' => '1',
+            'title'=> 'Proyectos'
         ];
     }
 }

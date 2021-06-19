@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Storage;
+use Intervention\Image\Facades\Image;
 
 class PageController extends Controller
 {
@@ -43,7 +45,16 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $page = Page::create($request->all());
+        $page = new Page;
+        $page->title = $request->input('title');
+        $page->description = $request->input('description');
+        if($request->hasFile('image')){
+            $page['image'] = $request['image']->store('uploads/pages','public');
+            $img = Image::make("storage/{$page['image']}")->fit(1250,850);
+            $img->save();
+        }
+        $page->category_id = $request->input('category_id');
+        $page->save();
         return redirect()->route('secciones.show',$page);
         // return redirect()->route('paginas.index');
     }
@@ -85,6 +96,12 @@ class PageController extends Controller
         $page = Page::findOrFail($page);
         $page->title = $request->input('title');
         $page->description = $request->input('description');
+        if($request->hasFile('image')){
+            Storage::delete("public/{$page->image}");
+            $page['image'] = $request['image']->store('uploads/pages','public');
+            $img = Image::make("storage/{$page['image']}")->fit(1250,850);
+            $img->save();
+        }
         $page->category_id = $request->input('category_id');
         $page->save();
         return redirect()->route('secciones.show',$page->id);
@@ -99,6 +116,7 @@ class PageController extends Controller
     public function destroy($page)
     {
         $page = Page::findOrFail($page);
+        Storage::delete("public/{$page->imagen}");
         $page->delete();
         return redirect()->route('paginas.index');
     }

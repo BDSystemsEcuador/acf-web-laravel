@@ -331,7 +331,7 @@ button:not(:disabled),
     position: relative;
 }
   .carousel-item img{
-    height: 300px;
+    height: 500px;
 }
 
 .carousel-item::before {
@@ -340,8 +340,9 @@ button:not(:disabled),
   top: 0px;
   left: 0;
   width: 100%;
-  height: 300px;
-  background: linear-gradient(to right, #5b81ff91, #9b05ff7e);
+  height: 500px;
+  background: linear-gradient(to right, #5b81ff1f, #9b05ff21);
+  /* background: linear-gradient(to right, #5b81ff91, #9b05ff7e); */
 
 }
 }

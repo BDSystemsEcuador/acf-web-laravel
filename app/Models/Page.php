@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','title','description','category_id'];
+    protected $fillable = ['id','title','description','category_id','image'];
+    protected $with = ['category'];
+
     public function category () 
     {
-        return $this->belongsTo(Category::class,'id');
+        return $this->belongsTo(Category::class);
     }
     public function sections () 
     {

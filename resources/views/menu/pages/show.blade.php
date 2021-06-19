@@ -30,8 +30,7 @@
 
     .url_img{
         display: block;
-        margin: auto;
-        width: 25%;
+        width: auto;
         height: 200px;
         overflow: hidden;
     }
@@ -52,6 +51,8 @@
 @section('title','Alas de Colibrí')
 @section('body')
 <div class="container">
+    <br>
+    <h1 class="copy-title">{{$page->title}}</h1>
     @foreach ($page->sections as $section)
     <div class="contenido-trix">
       <div class="contenido-trix__txt">

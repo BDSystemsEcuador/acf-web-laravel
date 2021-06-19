@@ -36,6 +36,11 @@
         @endif
       </select>
     </div>
+    <a href="{{asset("storage").'/'.$page->image}}" data-lightbox="roadtrip"><img style="height: 100px; width:auto;" src="{{asset("storage").'/'.$page->image}}" alt=""/></a>
+    <div class="mb-3">
+      <label for="image" class="form-label">Imagen</label>
+      <input class="form-control" type="file" name="image">
+    </div>
     <div class="form-group mb-3">
       <button class="btn btn-primary"  type="submit">Guardar y Continuar</button>
     </div>

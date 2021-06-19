@@ -278,11 +278,11 @@ $camposC = $provider->serviceColaboradores();
 
 			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['name']}}">
 			<span class='colabInputSpan' >Nombre</span>
-			</input>
+
 
 			<input class="cuadro-input-text" type="text" id="" value="{{$camposC[$i]['link']}}" >
 			<span class='colabInputSpan' >Dirección web</span>
-			</input>
+
 
 			<label class="cuadro-input" >Imagen
 			    <input type="file" accept="image/*" id="colaboradorUpdateImage:{{$camposC[$i]['id']}}" name="file" style="display:none" />
@@ -316,11 +316,11 @@ $camposC = $provider->serviceColaboradores();
 
 		    <input class="cuadro-input-text" type="text" id="linkInput" >
 		    <span class='colabInputSpan' >Nombre</span>
-		    </input>
+
 
 		    <input class="cuadro-input-text" type="text" id="linkInput">
 		    <span class='colabInputSpan' >Dirección web</span>
-		    </input>
+
 
 		    <label class="cuadro-input" >Imagen
 			<input type="file" accept="image/*" id="fileNewColaboradorInput" name="file" style="display:none" />

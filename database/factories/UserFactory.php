@@ -25,7 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => 'Alas de Colibrí',
-            'email' => 'colibri@gmail.com',
+            'email' => 'bdl.delgado@yavirac.edu.ec',
             'email_verified_at' => null,
             'password' => bcrypt('colibri123') , // password
             'remember_token' => null,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Section;
 use App\Models\SectionImage;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -36,8 +37,8 @@ class SectionImageController extends Controller
      */
     public function store(Request $request, $section_id)
     {
-        $image= new SectionImage();
-        $image->title = $request->input('title');
+        $image = new SectionImage();
+
         if($request->hasFile('image')){
             $image['image'] = $request['image']->store('uploads/sectionImages','public');
             $img = Image::make("storage/{$image['image']}")->resize(720, null, function ($constraint) {
@@ -47,7 +48,7 @@ class SectionImageController extends Controller
         }
         $image->section_id = $section_id;
         $image->save();
-        return redirect()-> route('imagenes.index');
+        return redirect()-> route('imagenes.show',$image->section_id);
     }
 
     /**
@@ -58,8 +59,9 @@ class SectionImageController extends Controller
      */
     public function show($sectionImage)
     {
-        $images = SectionImage::all();
-        return view('menu.images.index',compact('images','sectionImage'));
+        $images = SectionImage::where('section_id','=',$sectionImage)->get();
+        $section = Section::findOrFail($sectionImage);
+        return view('menu.images.index',compact('images','section','sectionImage'));
     }
 
     /**

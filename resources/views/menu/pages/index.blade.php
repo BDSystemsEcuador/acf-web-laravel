@@ -74,7 +74,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{route('paginas.store')}}" method="POST" class="form">
+                            <form action="{{route('paginas.store')}}" method="POST" class="form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group mb-3">
                                   <label  class="form-label" for="title">Título</label>
@@ -93,6 +93,12 @@
                                     @endforeach
                                   </select>
                                 </div>
+                                
+                                <div class="mb-3">
+                                  <label for="image" class="form-label">Imagen para proyecto</label>
+                                  <input class="form-control" type="file" name="image">
+                                </div>
+            
                                 <div class="form-group mb-3">
                                   <button class="btn btn-primary"  type="submit">Guardar y Continuar</button>
                                 </div>
@@ -136,7 +142,35 @@
             @endforeach
             </td>
         </tr>
+        <tr>
+          <th>
+              Proyectos
+          </th>
+          
+          <td>
+            @foreach ($pages as $page)
+            @if ($page->category_id === 1)
+            <div class=" d-flex justify-content-between align-items-center mb-4 ">
+              <div class=""> 
+                <a class="d-block fw-bold h4" href="{{route('paginas.show',$page->id)}}" target="_blank" title="Ver página">{{$page->title}}</a>
+                <span><span class="fw-bold">Descripción:</span> {{$page->description}}</span>
+              </div>
+              <div>
+                <a href="{{route('secciones.show',$page->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
+                <form class="d-inline-block" action="{{route('paginas.destroy',$page->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="icon icon--delete"><i class="fas fa-trash-alt"></i></button>
+                </form>
+              </div>
+          </div>
+          @endif
+          @endforeach
+          </td>
+      </tr>
         @foreach ($categories as $category)
+        @if ($category->id != 1)
+            
             <tr>
                 <th class="d-flex justify-content-between align-items-center border-0">
                     <div>
@@ -173,6 +207,8 @@
                   @endforeach
                 </td>
             </tr>
+        @endif
+
         @endforeach
     </tbody>
   </table>

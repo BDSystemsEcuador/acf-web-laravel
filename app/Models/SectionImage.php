@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SectionImage extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','image'];
+    protected $fillable = ['image'];
+    protected $with = ['section'];
+
     public function section () 
     {
         return $this->belongsTo(Section::class);

@@ -13,9 +13,6 @@
             <a href="{{route('sliders.index')}}" class="btn btn-outline-primary d-block py-3">Galería</a>
           </div>
           <div class="col-md-2">
-            <a href="{{route('proyectos.index')}}" class="btn btn-outline-primary d-block py-3">Proyectos</a>
-          </div>
-          <div class="col-md-2">
             <a href="{{route('paginas.index')}}" class="btn btn-outline-primary d-block py-3">Páginas</a>
           </div>
           <div class="col-md-2">
@@ -27,20 +24,31 @@
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Colaborator_section" aria-expanded="false" aria-controls="collapseTwo">
-          Colaboradores
-        </button>
+        
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+	  @component('administrador.quienes.edit')
+	      @slot('title')
+	          Password validation failure
+	      @endslot
+	  @endcomponent
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+
       </h2>
       <div id="Colaborator_section" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-
-          <div>
-              @component('administrador.layouts.colaboradores')
-                  @slot('title')
-                      Password validation failure
-                  @endslot
-              @endcomponent
-          </div>
+<div>
+	  @component('administrador.layouts.colaboradores')
+	      @slot('title')
+	          Password validation failure
+	      @endslot
+	  @endcomponent
+</div>
         </div>
       </div>
     </div>
@@ -59,6 +67,7 @@
         </div>
       </div>
     </div>
+
     {{-- <div class="accordion-item">
       <h2 class="accordion-header" id="headingThree">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

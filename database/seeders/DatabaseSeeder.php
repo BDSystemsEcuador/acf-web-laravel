@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\InicioFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,8 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 	\App\Models\User::factory(1)->create();
-	\App\Models\Slider::factory(3)->create();
-	\App\Models\Proyecto::factory(5)->create();
-	$this->call(QuienesSomosSeeder::class);
+        DB::table('categories')->insert(
+            [
+                'id' => 1,
+                'title' =>'Proyectos'
+            ]
+        );
+    	$this->call(QuienesSomosSeeder::class);
     }
 }

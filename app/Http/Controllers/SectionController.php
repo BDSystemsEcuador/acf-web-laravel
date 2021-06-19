@@ -68,9 +68,10 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit(Section $section)
+    public function edit($section)
     {
-        //
+        $section = Section::findOrFail($section);
+        return view('menu.sections.edit', compact('section'));
     }
 
     /**
@@ -80,9 +81,13 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request, $section)
     {
-        //
+        $section = Section::findOrFail($section);
+        $section->title = $request->input('title');
+        $section->content = $request->input('content');
+        $section->save();
+        return redirect()->route('secciones.show',$section->page);
     }
 
     /**

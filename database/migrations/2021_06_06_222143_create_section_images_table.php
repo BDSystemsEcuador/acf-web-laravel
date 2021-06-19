@@ -15,7 +15,6 @@ class CreateSectionImagesTable extends Migration
     {
         Schema::create('section_images', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
             $table->text('image');
             $table->foreignId('section_id')->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

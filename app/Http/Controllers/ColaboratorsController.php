@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Colaborator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
+use Intervention\Image\Facades\Image;
+use Storage;
 class ColaboratorsController extends Controller
 {
     /**
@@ -26,7 +26,7 @@ class ColaboratorsController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrador.colaboradores.create');
     }
 
     /**
@@ -42,9 +42,13 @@ class ColaboratorsController extends Controller
         $newRow->name = $request->input('name');
         $newRow->link = $request->input('link');
         if($request->hasFile('image')){
-            $newRow['image']=$request->file('image')->store('uploads/colaboradores','public');
+            $newRow['image'] = $request['image']->store('uploads/colaboradores','public');
+            $img = Image::make("storage/{$newRow['image']}")->fit(1250,850 );
+            $img->save();
+            
         }
         $newRow->save();
+        return redirect()->route('colaborador.index');
 }
 
     /**
@@ -66,7 +70,8 @@ class ColaboratorsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $colaborador = Colaborator::findOrFail($id);
+        return view('administrador.colaboradores.edit',compact('colaborador'));
     }
 
     /**
@@ -81,16 +86,15 @@ class ColaboratorsController extends Controller
         $currentRow=Colaborator::findOrFail($id);
         $currentRow->name = $request->input('name');
         $currentRow->link = $request->input('link');
-        $filename= $request->input('name');
+
         if($request->hasFile('image')){
-	    $guessExtension = $request->file('image')->guessExtension();
-	    $newfilename=$filename.'.'.$guessExtension;
-	    // Deleting old file and and adding new
-	    Storage::delete('uploads/colaboradores'.$newfilename);
-	    $currentRow['image']=$request->file('image')->storeAs('uploads/colaboradores',$filename.'.'.$guessExtension, 'public');
+            Storage::delete("public/{$currentRow->image}");
+            $currentRow['image'] = $request['image']->store('uploads/colaboradores','public');
+            $img = Image::make("storage/{$currentRow['image']}")->fit(1250,850);
+            $img->save();
         }
         $currentRow->save();
-
+        return route('colaborador.index');
     }
 
     /**
@@ -103,7 +107,9 @@ class ColaboratorsController extends Controller
     {
         $currentRow=Colaborator::findOrFail($id);
 	//dd($currentRow['image']);
-	   Storage::disk('public')->delete($currentRow['image']);
+
+
+           Storage::delete("public/{$currentRow->imagen}");
            $currentRow->delete();
            return redirect()->route('colaborador.index');
     }

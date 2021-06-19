@@ -57,10 +57,10 @@
 				<a href="{{ $colaborador->link}}">{{ $colaborador->link}}</a>
 			</td>
 			<td>
-				<img src="{{Storage::url($colaborador->image)}}" class="colaborador__img" width="1500" height="1368" href="{{$colaborador->link}}"alt="..." />
+                <a href="{{asset("storage").'/'.$colaborador->image}}" data-lightbox="roadtrip"><img style="height: 100px; width:auto;" src="{{asset("storage").'/'.$colaborador->image}}" alt=""/></a>
 			</td>
 			<td>
-				<a href="" class="icon icon--edit"><i class="fas fa-edit"></i></a>
+				<a href="{{route('colaborador.edit',$colaborador->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
                 <form class="d-inline-block" action="{{route('colaborador.destroy',$colaborador->id)}}" method="POST">
                     @csrf
                     @method('DELETE')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Colaborator;
+use App\Models\Quienes;
 use Illuminate\Http\Request;
 
 class ServiceColaboradoresController extends Controller

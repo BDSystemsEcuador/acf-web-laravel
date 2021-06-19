@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Quienes;
 use Illuminate\Http\Request;
 
 class ServiceContactosController extends Controller

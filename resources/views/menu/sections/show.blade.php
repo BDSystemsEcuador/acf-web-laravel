@@ -1,5 +1,6 @@
 @extends('administrador.layouts.main')
 @section('styles')
+
     <style>
         .icon{
             border: 1px solid rgba(0, 0, 0, 0.425);
@@ -32,6 +33,52 @@
             background:rgb(125, 0, 184) ;
         }
     </style>
+    <style>    
+        .contenido-trix{
+            margin: 5px auto;
+            text-align: justify;
+            border: none;
+        }
+        .section__imgs{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content:flex-start ;
+                flex-wrap: wrap;
+                margin: 20px;
+            }
+            .img__section{
+                object-fit: cover;
+                height: inherit;
+                margin: 10px;
+                transition: 0.5s all;
+            }
+           .img__section:hover{
+                transform: scale(1.03);
+                box-shadow: 0px 0px 3px blacrgba(0, 0, 0, 0.788)
+                border-radius: 5px;
+                filter: brightness(1.2);
+            }
+        
+            .url_img{
+                display: inline-block;
+                width: 25%;
+                height: 150px;
+                overflow: hidden;
+            }
+            .copy-title{
+                margin-top: 0;
+            }
+            .img__section--una{
+                object-fit: contain;
+            }
+            @media screen and (max-width:768px){
+                .url_img{
+                width: 100%;
+                margin:10px 0;
+            }
+            }
+        </style>
 @endsection
 @section('admin')
 <div class="d-flex justify-content-between align-items-center">  
@@ -45,7 +92,7 @@
 <div class="row" >
 <div class="col-12">
 
-    <form action="{{route('paginas.update',$page->id)}}" method="POST" class="form">
+    <form action="{{route('paginas.update',$page->id)}}" method="POST" class="form" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group mb-3">
@@ -66,6 +113,11 @@
             @endforeach
           </select>
         </div>
+        <a href="{{asset("storage").'/'.$page->image}}" data-lightbox="roadtrip"><img style="height: 100px; width:auto;" src="{{asset("storage").'/'.$page->image}}" alt=""/></a>
+        <div class="mb-3">
+            <label for="image" class="form-label">Imagen</label>
+            <input class="form-control" type="file" name="image">
+          </div>
         <div class="form-group mb-3">
           <button class="btn btn-primary"  type="submit">Editar y Guardar</button>
         </div>
@@ -85,10 +137,24 @@
         <tbody>
             @foreach ($page->sections as $section)
             <tr>
-                <td><a href="{{route('paginas.show',$page->id)}}" target="_blank" title="Ver página">{{$section->title}}</a></td>
+                <td>
+                    <a href="{{route('paginas.show',$page->id)}}" target="_blank" title="Ver página">{{$section->title}}</a>
+                    {!!$section->content!!}
+                    @foreach ($section->sectionImages as $image)
+                        @if (count($section->sectionImages)>1)
+                        <a href="{{asset('storage').'/'.$image->image}}" data-lightbox="roadtrip" class="url_img">
+                            <img src="{{asset('storage').'/'.$image->image}}" alt="" class="img__section"/>
+                        </a>
+                        @else
+                        <a href="{{asset('storage').'/'.$image->image}}" data-lightbox="roadtrip" class="url_img">
+                            <img src="{{asset('storage').'/'.$image->image}}" alt="" class="img__section img__section--una"/>
+                        </a>
+                        @endif
+                    @endforeach
+                </td>
                 <td class="d-flex justify-content-end align-items-center">
                     <a href="{{route('imagenes.show',$section->id)}}" class="icon icon--camera"><i class="fas fa-camera"></i></a>
-                    <a href="{{route('secciones.show',$page->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
+                    <a href="{{route('secciones.edit',$section->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>
                     <form class="d-inline-block" action="{{route('secciones.destroy',$section->id)}}" method="POST">
                             @csrf
                             @method('DELETE')

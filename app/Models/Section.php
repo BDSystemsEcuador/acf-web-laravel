@@ -9,6 +9,7 @@ class Section extends Model
 {
     use HasFactory;
     protected $fillable = ['title','content'];
+    protected $with = ['page'];
     public function page () 
     {
         return $this->belongsTo(Page::class);
