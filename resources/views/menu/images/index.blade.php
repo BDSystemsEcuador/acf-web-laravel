@@ -12,6 +12,13 @@
   <div class="card-body">
     <img class="card-img-top" src="{{asset("storage").'/'.$image->image}}" alt="Card image cap" style="max-height:150px;object-fit:contain;">
   </div>
+  <div class="card-footer d-flex justify-content-center">
+    <a onclick="document.getElementById('{{$image->id}}-delete').submit();" class="btn btn-outline-dark d-block mx-2">Eliminar</a>
+    <form id="{{$image->id}}-delete" action="{{route('imagenes.destroy',$image->id)}}" method="POST">
+      @method('delete')
+      @csrf
+    </form>
+  </div>
 </div>
 @endforeach
 </div>

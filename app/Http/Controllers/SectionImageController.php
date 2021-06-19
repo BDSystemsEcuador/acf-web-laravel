@@ -6,7 +6,7 @@ use App\Models\Section;
 use App\Models\SectionImage;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-
+use Storage;
 class SectionImageController extends Controller
 {
     /**
@@ -97,8 +97,12 @@ class SectionImageController extends Controller
      * @param  \App\Models\SectionImage  $sectionImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SectionImage $sectionImage)
+    public function destroy( $sectionImage)
     {
-        //
+        $image = SectionImage::findOrFail($sectionImage);
+        $section = $image->section;
+        Storage::delete("public/{$image->image}");
+            $image->delete();
+            return redirect()-> route('imagenes.show',$section->id)->with('message','Imagen eliminada con éxito');
     }
 }
