@@ -26,7 +26,7 @@ $ContactosPrincipal = $provider->serviceContactos();
 			    @if (strpos($ContactosPrincipal[$i]['name'], 'WP') == false)
 
 
-				<h2>{{ $ContactosPrincipal[$i]['name']}}</h2>
+				<h2 class="mapa__title" style="margin-top: 20px">{{ $ContactosPrincipal[$i]['name']}}</h2>
 
 				@if ($ContactosPrincipal[$i]['movil_phone']) 
 

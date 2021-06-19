@@ -43,8 +43,6 @@ class ColaboratorsController extends Controller
         $newRow->link = $request->input('link');
         if($request->hasFile('image')){
             $newRow['image'] = $request['image']->store('uploads/colaboradores','public');
-            $img = Image::make("storage/{$newRow['image']}")->fit(1250,850 );
-            $img->save();
             
         }
         $newRow->save();
@@ -90,11 +88,10 @@ class ColaboratorsController extends Controller
         if($request->hasFile('image')){
             Storage::delete("public/{$currentRow->image}");
             $currentRow['image'] = $request['image']->store('uploads/colaboradores','public');
-            $img = Image::make("storage/{$currentRow['image']}")->fit(1250,850);
-            $img->save();
+  
         }
         $currentRow->save();
-        return route('colaborador.index');
+        return redirect()->route('colaborador.index');
     }
 
     /**

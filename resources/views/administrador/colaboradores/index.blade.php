@@ -57,7 +57,7 @@
 				<a href="{{ $colaborador->link}}">{{ $colaborador->link}}</a>
 			</td>
 			<td>
-                <a href="{{asset("storage").'/'.$colaborador->image}}" data-lightbox="roadtrip"><img style="height: 100px; width:auto;" src="{{asset("storage").'/'.$colaborador->image}}" alt=""/></a>
+                <a href="{{asset("storage").'/'.$colaborador->image}}" data-lightbox="roadtrip"><img style="height: 50px; width:auto;" src="{{asset("storage").'/'.$colaborador->image}}" alt=""/></a>
 			</td>
 			<td>
 				<a href="{{route('colaborador.edit',$colaborador->id)}}" class="icon icon--edit"><i class="fas fa-edit"></i></a>

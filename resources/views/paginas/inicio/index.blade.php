@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('title','Alas de Colibrí')
 @section('styles')
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
 @endsection
 @section('body')

@@ -35,7 +35,7 @@
           @endforeach
           {{-- menu dinamico --}}
           @foreach ($categories->categories() as $category)
-          @if (count($category->pages )>0)
+          @if (count($category->pages )>0 && $category->id !=1)
           <li class="menu__item container-submenu">
             <a href="#" class="menu__link submenu-btn"
               >{{$category->title}}<i class="fas fa-chevron-down"></i
