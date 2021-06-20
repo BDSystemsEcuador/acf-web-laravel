@@ -219,9 +219,8 @@ p {
     padding: 0px;
     border-radius: 10px;
     overflow: hidden;
-    margin: 20px 0;
     border: 1px solid rgba(2, 2, 2, 0.165);
-    margin: 0 10px;
+    margin: 15px 10px;
 }
 .card__img {
     height: 160px;
@@ -408,24 +407,25 @@ p {
 .contactos-wsp {
     position: fixed;
     background: #3b3b3b;
-    max-width: 120px;
     bottom: 26px;
     right: 25px;
     border-radius: 10px;
     height: 0;
+    width: max-content;
     transition: all 0.2s;
     padding: 0px;
     overflow: hidden;
 }
 .mostrar-contacts {
     height: max-content;
+    width: auto;
     border: 2px solid #fafafa;
 }
 
 .wsp-num {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: auto;
     color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 1rem;
@@ -447,8 +447,9 @@ p {
 .contactos-container {
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     height: auto;
 }
@@ -635,18 +636,14 @@ p {
         width: 50%;
         padding: 20px;
     }
-    .contactos-wsp {
-        max-width: max-content;
-    }
+
     .img__show-project{
         display: block;
         width: 600px;
         margin: 30px auto;
         border-radius: 5px;
     }
-    .mostrar-contacts{
-        width: 150px;
-    }
+ 
 }
 @media screen and (min-width: 1024px) {
     .container {

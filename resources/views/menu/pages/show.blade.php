@@ -29,8 +29,8 @@
     }
 
     .url_img{
-        display: block;
-        width: auto;
+        display: inline-block;
+        width: 25%;
         height: 200px;
         overflow: hidden;
     }
@@ -39,6 +39,10 @@
     }
     .img__section--una{
         object-fit: contain;
+    }
+    div{
+        line-height: 25px;
+
     }
     @media screen and (max-width:768px){
         .url_img{

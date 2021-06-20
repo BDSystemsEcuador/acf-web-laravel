@@ -18,7 +18,7 @@ class InicioController extends Controller
         $sliders=Slider::query()->select(['titulo','descripcion','imagen'])->orderBy('id','desc')->get();
         // $proyectos = Proyecto::query()->select(['id','titulo','mini_descripcion','imagen'])->orderBy('id','desc')->simplePaginate(5);
         $pages = Category::findOrFail(1)->pages;
-        $proyectos = Page::where('category_id','=',1)->paginate(4);
+        $proyectos = Page::where('category_id','=',1)->orderBy('id','desc')->paginate(4);
         // $imagesProyects = array_reverse($imagesProyects);
         return view('paginas.inicio.index',compact(['sliders','proyectos']));
     }
